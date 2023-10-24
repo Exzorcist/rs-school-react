@@ -1,0 +1,10 @@
+.Result h2 {
+    margin-bottom: 12px;
+}
+
+.ResultInfo {
+    min-height: 320px;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--white);
+}
