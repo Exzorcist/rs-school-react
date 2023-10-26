@@ -1,8 +1,8 @@
 :root {
     --white: #ffffff;
     --indigo-700: #4338ca;
-    --orange-200: #fed7aa;
-    --orange-600: #ea580c;
+    --red-500: #ef4444;
+    --red-600: #dc2626;
 
     --default-font-size: 1.6rem;
 }

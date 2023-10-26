@@ -1,0 +1,15 @@
+.Item {
+    display: grid;
+}
+
+.Item img {
+    margin: 0 auto;
+}
+
+
+.Item h4 {
+    text-align: center;
+    font-weight: 400;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+}

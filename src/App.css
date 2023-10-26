@@ -1,5 +1,7 @@
 .App {
-    max-width: 768px;
+    display: grid;
+    gap: 64px;
+    max-width: 1024px;
     padding: 24px;
     margin: 40px auto;
 }

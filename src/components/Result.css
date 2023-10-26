@@ -1,10 +1,9 @@
-.Result h2 {
-    margin-bottom: 12px;
-}
-
 .ResultInfo {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
     min-height: 320px;
     padding: 16px;
     border-radius: 8px;
-    border: 1px solid var(--white);
+    border: 1px dashed var(--white);
 }
