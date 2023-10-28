@@ -53,6 +53,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'react/state-in-constructor': 'off',
+    'class-methods-use-this': 'off',
     'import/extensions': [
       'error',
       'never',

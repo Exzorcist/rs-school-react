@@ -1,7 +1,6 @@
-export interface PokemonResult {
-  isFullRequest: boolean;
-  currentPokemon: PokemonInformation;
-  allPokemons: PokemonInformation[];
+export interface PokemonShortInformation {
+  name: string;
+  url: string;
 }
 
 export interface PokemonInformation {
@@ -18,6 +17,7 @@ export interface PokemonInformation {
       };
     };
   };
+  mode?: Mode;
 }
 
 export interface PokemonAbilities {
@@ -40,9 +40,19 @@ export interface PokemonTypes {
 }
 
 export interface SearchProps {
-  setAllPokemons: (data: PokemonInformation) => void;
+  setPokemonList: (data: PokemonInformation) => void;
+  setCurrentPokemon: (data: PokemonInformation) => void;
+  setMode: (data: Mode) => void;
 }
 
 export interface AppStateType {
-  allPokemons: PokemonInformation[];
+  pokemonList: PokemonInformation[];
 }
+
+export interface ResultProps {
+  pokemonList: PokemonInformation[];
+  currentPokemon: PokemonInformation;
+  mode: Mode;
+}
+
+export type Mode = 'list' | 'current';

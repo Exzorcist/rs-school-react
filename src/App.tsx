@@ -2,42 +2,46 @@ import React from 'react';
 import './App.css';
 
 import Search from './components/Search.tsx';
-// import Result from './components/Result.tsx';
+import Result from './components/Result.tsx';
 
-import { PokemonInformation, AppStateType } from './interfaces/CommonTypes.ts';
+import { PokemonInformation, AppStateType, Mode } from './interfaces/CommonTypes.ts';
 
 class App extends React.PureComponent<AppStateType> {
   state = {
-    // isFullRequest: true,
-    allPokemons: [] as PokemonInformation[],
-    // pokemon: {},
+    mode: 'list' as Mode, // list | current
+    pokemonList: [] as PokemonInformation[],
+    currentPokemon: {} as PokemonInformation,
   };
 
-  // setIsFullRequest = (value: boolean): void => {
-  //   this.setState({ isFullRequest: value });
-  // };
+  setPokemonList = (data: PokemonInformation): void => {
+    this.setState((prev: AppStateType) => ({
+      pokemonList: [...prev.pokemonList, data],
+    }));
+  };
 
-  // setPokemonData = (data: boolean): void => {
-  //   this.setState({ pokemon: data });
-  // };
+  setCurrentPokemon = (data: PokemonInformation): void => {
+    this.setState(() => ({
+      currentPokemon: { ...data },
+    }));
+  };
 
-  setAllPokemons = (data: PokemonInformation): void => {
-    this.setState(
-      (prev: AppStateType): AppStateType => ({
-        allPokemons: [...prev.allPokemons, data],
-      })
-    );
+  setMode = (data: Mode): void => {
+    this.setState(() => ({
+      mode: data,
+    }));
   };
 
   render() {
-    // const { isFullRequest, allPokemon } = this.state;
-    // const { isFullRequest, pokemon, allPokemon } = this.state;
+    const { pokemonList, currentPokemon, mode } = this.state;
 
     return (
       <div className="App">
-        <Search setAllPokemons={this.setAllPokemons} />
-
-        {/* <Result isFullRequest={isFullRequest} pokemon={pokemon} allPokemon={allPokemon} /> */}
+        <Search
+          setPokemonList={this.setPokemonList}
+          setCurrentPokemon={this.setCurrentPokemon}
+          setMode={this.setMode}
+        />
+        <Result pokemonList={pokemonList} currentPokemon={currentPokemon} mode={mode} />
       </div>
     );
   }

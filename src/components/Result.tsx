@@ -1,70 +1,40 @@
 import React from 'react';
 import './Result.css';
 
-// import Item from './Item.tsx';
+import Item from './Item.tsx';
 
-import { PokemonResult } from '../interfaces/CommonTypes.ts';
+import { ResultProps, PokemonInformation } from '../interfaces/CommonTypes.ts';
 
-class Result extends React.PureComponent<PokemonResult> {
-  // state = {
-  //   items: [],
-  //   requestUrl: 'https://pokeapi.co/api/v2/pokemon/',
-  // };
-
-  // hasMounted = false;
-
-  // componentDidMount() {
-  //   const { isFullRequest } = this.props;
-
-  //   if (!this.hasMounted) {
-  //     this.hasMounted = true;
-  //     this.getPokemons();
-
-  //     console.log(isFullRequest);
-  //   }
-  // }
-
-  // getPokemons = () => {
-  //   const { requestUrl } = this.state;
-
-  //   fetch(requestUrl)
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       const arrayOfPromise = [];
-
-  //       json.results.forEach((item) => {
-  //         arrayOfPromise.push(fetch(item.url).then((resp) => resp.json()));
-  //       });
-
-  //       Promise.all(arrayOfPromise).then((results) => {
-  //         results.forEach((pokemon) => {
-  //           this.parsePokemonData(pokemon);
-  //         });
-  //       });
-  //     });
-  // };
-
-  // parsePokemonData = (pokemon) => {
-  //   const data = {
-  //     id: pokemon.id,
-  //     name: pokemon.name,
-  //     abilities: pokemon.abilities,
-  //     image: pokemon.sprites.other['official-artwork'].front_default,
-  //     stats: pokemon.stats,
-  //     types: pokemon.types,
-  //   };
-
-  //   this.setState((prev) => ({
-  //     items: [...prev.items, data],
-  //   }));
-  // };
-
+class Result extends React.PureComponent<ResultProps> {
   render() {
+    const { pokemonList, currentPokemon, mode } = this.props;
+
     return (
       <div className="ResultInfo">
-        {/* {this.state.items.map((item) => (
-          <Item key={item.id} {...item} />
-        ))} */}
+        {mode === 'current' && (
+          <Item
+            id={currentPokemon.id}
+            name={currentPokemon.name}
+            image={currentPokemon.image}
+            abilities={currentPokemon.abilities}
+            stats={currentPokemon.stats}
+            types={currentPokemon.types}
+            mode={mode}
+          />
+        )}
+        {mode === 'list' &&
+          pokemonList.map((item: PokemonInformation) => (
+            <Item
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              image={item.image}
+              abilities={item.abilities}
+              stats={item.stats}
+              types={item.types}
+              mode={mode}
+            />
+          ))}
       </div>
     );
   }
