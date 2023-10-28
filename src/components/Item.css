@@ -1,15 +1,79 @@
-.Item {
+/* For 'list' mode */
+.Item.list {
     display: grid;
+    gap: 8px;
 }
 
-.Item img {
+.Item.list img {
     margin: 0 auto;
 }
 
-
-.Item h4 {
+.Item.list h4 {
     text-align: center;
     font-weight: 400;
     font-size: 1.4rem;
     text-transform: capitalize;
+}
+
+/* For 'current' mode */
+.Item.current {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 48px;
+}
+
+.Item.current .ItemName {
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--white);
+    font-size: 2rem;
+    text-transform: capitalize;
+}
+
+.Item.current .ItemTypes {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.Item.current .ItemTypes span {
+    padding: 6px 20px 8px;
+    border-radius: 8px;
+    background-color: var(--red-500);
+    font-size: 1.3rem;
+}
+
+.Item.current .ItemStats {
+    margin-bottom: 40px;
+}
+
+.Item.current .ItemStats div {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    font-size: 1.4rem;
+}
+
+.Item.current .ItemStats div:not(:last-child) span {
+    border-bottom: 1px solid var(--white);
+    margin-bottom: 10px;
+    padding-bottom: 12px;
+}
+
+.Item.current .ItemAbility {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.Item.current .ItemAbility div {
+    display: flex;
+    gap: 20px;
+}
+
+.Item.current .ItemAbility span {
+    padding: 6px 20px 8px;
+    border-radius: 8px;
+    background-color: var(--red-500);
+    font-size: 1.3rem;
 }

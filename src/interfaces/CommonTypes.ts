@@ -18,6 +18,7 @@ export interface PokemonInformation {
     };
   };
   mode?: Mode;
+  onClick?: () => void;
 }
 
 export interface PokemonAbilities {
@@ -40,19 +41,24 @@ export interface PokemonTypes {
 }
 
 export interface SearchProps {
+  clearPokemonList: () => void;
   setPokemonList: (data: PokemonInformation) => void;
   setCurrentPokemon: (data: PokemonInformation) => void;
+  setSearchRequest: (data: string, callback: () => void) => void;
   setMode: (data: Mode) => void;
-}
-
-export interface AppStateType {
-  pokemonList: PokemonInformation[];
+  setIsLoading: (data: boolean) => void;
+  searchRequset: string;
 }
 
 export interface ResultProps {
   pokemonList: PokemonInformation[];
   currentPokemon: PokemonInformation;
   mode: Mode;
+  setSearchRequest: (data: string, callback: () => void) => void;
 }
 
 export type Mode = 'list' | 'current';
+
+export interface LoaderProps {
+  isLoading: boolean;
+}
