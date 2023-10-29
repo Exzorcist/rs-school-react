@@ -1,11 +1,13 @@
 import React from 'react';
+
+import Search from './components/Search/Search.tsx';
+import Result from './components/Result/Result.tsx';
+import Loader from './components/Ui/Loader.tsx';
+
+import { PokemonInformation, Mode } from './interfaces/Pokemon.ts';
+import { ResultProps } from './interfaces/Result.ts';
+
 import './App.css';
-
-import Search from './components/Search.tsx';
-import Result from './components/Result.tsx';
-import Loader from './components/Loader.tsx';
-
-import { PokemonInformation, ResultProps, Mode } from './interfaces/CommonTypes.ts';
 
 class App extends React.PureComponent {
   state = {
@@ -16,44 +18,29 @@ class App extends React.PureComponent {
     isLoading: false as boolean,
   };
 
-  setPokemonList = (data: PokemonInformation): void => {
+  // Change component state
+  setPokemonList = (data: PokemonInformation | []): void => {
     this.setState((prev: ResultProps) => ({
-      pokemonList: [...prev.pokemonList, data],
-    }));
-  };
-
-  clearPokemonList = (): void => {
-    this.setState(() => ({
-      pokemonList: [],
+      pokemonList: !Array.isArray(data) ? [...prev.pokemonList, data] : [],
     }));
   };
 
   setCurrentPokemon = (data: PokemonInformation): void => {
-    this.setState(() => ({
-      currentPokemon: { ...data },
-    }));
+    this.setState(() => ({ currentPokemon: { ...data } }));
   };
 
   setMode = (data: Mode): void => {
-    this.setState(() => ({
-      mode: data,
-    }));
+    this.setState(() => ({ mode: data }));
   };
 
   setIsLoading = (data: boolean): void => {
-    this.setState(() => ({
-      isLoading: data,
-    }));
+    this.setState(() => ({ isLoading: data }));
   };
 
   setSearchRequest = (data: string, callback: () => void): void => {
     this.setState(
-      {
-        searchRequset: data,
-      },
-      () => {
-        callback();
-      }
+      () => ({ searchRequset: data }),
+      () => callback()
     );
   };
 
@@ -64,7 +51,6 @@ class App extends React.PureComponent {
       <div className="App">
         <Search
           setPokemonList={this.setPokemonList}
-          clearPokemonList={this.clearPokemonList}
           setCurrentPokemon={this.setCurrentPokemon}
           setMode={this.setMode}
           searchRequset={searchRequset}
