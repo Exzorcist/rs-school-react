@@ -1,25 +1,25 @@
 .loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
 
-    display: none;
-    gap: 24px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: var(--bg-loader);
+  display: none;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: var(--bg-loader);
 }
 
 .show {
-    display: flex;
+  display: flex;
 }
 
 .title {
-    margin-left: 12px;
-    color: var(--color2);
-    font-weight: 400;
+  margin-left: 12px;
+  color: var(--color2);
+  font-weight: 400;
 }

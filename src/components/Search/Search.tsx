@@ -108,7 +108,11 @@ class Search extends React.PureComponent<SearchProps> {
 
   render() {
     const { isErrorVisible } = this.state;
-    const { searchRequset, setSearchRequest } = this.props;
+    const { searchRequset, setSearchRequest, isErrorBoundary } = this.props;
+
+    if (isErrorBoundary) {
+      throw new Error('Test message to check ErrorBoundary operation');
+    }
 
     return (
       <div className={styles.search}>

@@ -1,0 +1,19 @@
+.button {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--color1);
+
+  color: var(--color5);
+  font-size: 1.2rem;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--color2);
+}

@@ -4,6 +4,9 @@ import Search from './components/Search/Search.tsx';
 import Result from './components/Result/Result.tsx';
 import Loader from './components/Ui/Loader.tsx';
 
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary.tsx';
+import ErrorBoundaryButton from './components/ErrorBoundary/ErrorBoundaryButton.tsx';
+
 import { PokemonInformation, Mode } from './interfaces/Pokemon.ts';
 import { ResultProps } from './interfaces/Result.ts';
 
@@ -16,6 +19,7 @@ class App extends React.PureComponent {
     currentPokemon: {} as PokemonInformation,
     searchRequset: '' as string,
     isLoading: false as boolean,
+    isErrorBoundary: false as boolean,
   };
 
   // Change component state
@@ -44,26 +48,39 @@ class App extends React.PureComponent {
     );
   };
 
+  setIsErrorBoundary = (data: boolean): void => {
+    this.setState(() => ({ isErrorBoundary: data }));
+  };
+
   render() {
-    const { pokemonList, currentPokemon, mode, searchRequset, isLoading } = this.state;
+    const { pokemonList, currentPokemon, mode } = this.state;
+    const { searchRequset, isLoading, isErrorBoundary } = this.state;
 
     return (
       <div className="App">
-        <Search
-          setPokemonList={this.setPokemonList}
-          setCurrentPokemon={this.setCurrentPokemon}
-          setMode={this.setMode}
-          searchRequset={searchRequset}
-          setSearchRequest={this.setSearchRequest}
-          setIsLoading={this.setIsLoading}
+        <ErrorBoundary>
+          <Search
+            setPokemonList={this.setPokemonList}
+            setCurrentPokemon={this.setCurrentPokemon}
+            setMode={this.setMode}
+            searchRequset={searchRequset}
+            setSearchRequest={this.setSearchRequest}
+            setIsLoading={this.setIsLoading}
+            isErrorBoundary={isErrorBoundary}
+          />
+          <Result
+            pokemonList={pokemonList}
+            currentPokemon={currentPokemon}
+            mode={mode}
+            setSearchRequest={this.setSearchRequest}
+          />
+          <Loader isLoading={isLoading} />
+        </ErrorBoundary>
+
+        <ErrorBoundaryButton
+          setIsErrorBoundary={this.setIsErrorBoundary}
+          isErrorBoundary={isErrorBoundary}
         />
-        <Result
-          pokemonList={pokemonList}
-          currentPokemon={currentPokemon}
-          mode={mode}
-          setSearchRequest={this.setSearchRequest}
-        />
-        <Loader isLoading={isLoading} />
       </div>
     );
   }

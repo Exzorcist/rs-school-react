@@ -1,23 +1,23 @@
 .error {
-    position: relative;
-    display: none;
-    margin-top: 16px;
-    padding: 10px 40px 10px 16px;
+  position: relative;
+  display: none;
+  margin-top: 16px;
+  padding: 10px 40px 10px 16px;
 
-    border-radius: 8px;
-    background-color: var(--color2);
-    font-size: 1rem;
+  border-radius: 8px;
+  background-color: var(--color2);
+  font-size: 1rem;
 }
 
 .show {
-    display: block;
+  display: block;
 }
 
 .close {
-    position: absolute;
-    top: 0;
-    right: 12px;
-    transform: rotate(45deg);
-    font-size: 2rem;
-    cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 12px;
+  transform: rotate(45deg);
+  font-size: 2rem;
+  cursor: pointer;
 }
