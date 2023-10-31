@@ -1,0 +1,19 @@
+.pokemon {
+  padding: 4px 4px 12px 4px;
+  border-radius: 16px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.pokemon:hover {
+  box-shadow: 0 0 14px -2px var(--color5);
+}
+
+.title {
+  margin-top: 12px;
+  color: var(--color5);
+  font-weight: 400;
+  font-size: 1.4rem;
+  letter-spacing: 0.1rem;
+  text-transform: capitalize;
+}

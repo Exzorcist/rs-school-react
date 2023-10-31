@@ -52,6 +52,15 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    'react/state-in-constructor': 'off',
+    'class-methods-use-this': 'off',
+    'import/extensions': [
+      'error',
+      'never',
+      {
+        ts: 'always',
+      },
+    ],
   },
   ignorePatterns: ['vite.config.ts'],
 };

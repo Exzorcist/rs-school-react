@@ -1,0 +1,28 @@
+.box {
+  margin-top: 32px;
+}
+
+.title {
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--color1);
+
+  color: var(--color1);
+  font-size: 1.6rem;
+}
+
+.stats {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  font-size: 1.3rem;
+}
+
+.stat span:nth-child(1)::after {
+  content: ' - ';
+}
+
+.stat span:nth-child(2) {
+  color: var(--color2);
+  font-weight: 600;
+}

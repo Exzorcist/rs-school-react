@@ -1,0 +1,32 @@
+.box {
+  display: grid;
+  gap: 24px;
+  align-items: center;
+  grid-template-columns: 90px 1fr;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.abilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.abilities span {
+  padding: 4px 16px 6px;
+  border-radius: 6px;
+  background-color: var(--color4);
+  color: var(--color5);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.abilities span:hover {
+  background-color: var(--color3);
+}
