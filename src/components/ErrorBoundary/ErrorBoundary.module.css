@@ -1,6 +1,8 @@
 .error {
   display: grid;
   gap: 8px;
+  max-width: 768px;
+  margin: 60px auto;
   text-align: center;
 }
 

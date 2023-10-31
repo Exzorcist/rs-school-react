@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import ErrorBoundaryButton from './ErrorBoundaryButton.tsx';
 import { ErrorBoundaryProps, ErrorBoundaryState } from '../../interfaces/ErrorBoundary.ts';
 import styles from './ErrorBoundary.module.css';
 
@@ -7,6 +8,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     super(props);
     this.state = {
       hasError: false,
+      isErrorBoundary: true,
     };
   }
 
@@ -14,8 +16,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     this.setState({ hasError: true });
   }
 
+  setIsErrorBoundary = (data: boolean): void => {
+    this.setState(() => ({ isErrorBoundary: data }));
+  };
+
   render() {
-    const { hasError } = this.state;
+    const { hasError, isErrorBoundary } = this.state;
     const { children } = this.props;
 
     if (hasError) {
@@ -26,6 +32,11 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
           <h5 className={styles.message}>
             You also can see error in the console and in the DevTools React Tab Component
           </h5>
+
+          <ErrorBoundaryButton
+            setIsErrorBoundary={this.setIsErrorBoundary}
+            isErrorBoundary={isErrorBoundary}
+          />
         </div>
       );
     }

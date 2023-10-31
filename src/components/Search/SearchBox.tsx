@@ -8,7 +8,6 @@ class SearchBox extends React.PureComponent<SearchBoxProps> {
     const request = (event.target as HTMLInputElement).value.trim().toLocaleLowerCase();
 
     setSearchRequest(request, () => {
-      localStorage.setItem('last-request', request);
       if (!request) getPokemonData();
     });
   };

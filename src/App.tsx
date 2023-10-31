@@ -3,8 +3,6 @@ import React from 'react';
 import Search from './components/Search/Search.tsx';
 import Result from './components/Result/Result.tsx';
 import Loader from './components/Ui/Loader.tsx';
-
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary.tsx';
 import ErrorBoundaryButton from './components/ErrorBoundary/ErrorBoundaryButton.tsx';
 
 import { PokemonInformation, Mode } from './interfaces/Pokemon.ts';
@@ -58,24 +56,22 @@ class App extends React.PureComponent {
 
     return (
       <div className="App">
-        <ErrorBoundary>
-          <Search
-            setPokemonList={this.setPokemonList}
-            setCurrentPokemon={this.setCurrentPokemon}
-            setMode={this.setMode}
-            searchRequset={searchRequset}
-            setSearchRequest={this.setSearchRequest}
-            setIsLoading={this.setIsLoading}
-            isErrorBoundary={isErrorBoundary}
-          />
-          <Result
-            pokemonList={pokemonList}
-            currentPokemon={currentPokemon}
-            mode={mode}
-            setSearchRequest={this.setSearchRequest}
-          />
-          <Loader isLoading={isLoading} />
-        </ErrorBoundary>
+        <Search
+          setPokemonList={this.setPokemonList}
+          setCurrentPokemon={this.setCurrentPokemon}
+          setMode={this.setMode}
+          searchRequset={searchRequset}
+          setSearchRequest={this.setSearchRequest}
+          setIsLoading={this.setIsLoading}
+          isErrorBoundary={isErrorBoundary}
+        />
+        <Result
+          pokemonList={pokemonList}
+          currentPokemon={currentPokemon}
+          mode={mode}
+          setSearchRequest={this.setSearchRequest}
+        />
+        <Loader isLoading={isLoading} />
 
         <ErrorBoundaryButton
           setIsErrorBoundary={this.setIsErrorBoundary}

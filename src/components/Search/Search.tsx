@@ -36,6 +36,8 @@ class Search extends React.PureComponent<SearchProps> {
     const { setCurrentPokemon, setPokemonList } = this.props;
     const { setMode, searchRequset, setIsLoading } = this.props;
 
+    localStorage.setItem('last-request', searchRequset);
+
     // Start Loading
     setIsLoading(true);
 

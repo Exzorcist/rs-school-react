@@ -11,9 +11,7 @@ class PokemonList extends React.PureComponent<PokemonListProps> {
         className={styles.pokemon}
         role="button"
         tabIndex={0}
-        onClick={() =>
-          clickEvent && clickEvent(name, () => localStorage.setItem('last-request', name))
-        }
+        onClick={() => clickEvent && clickEvent(name, () => null)}
         onKeyPress={() => null}
       >
         <img src={image} width="150" height="150" alt={name} />
