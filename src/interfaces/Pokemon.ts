@@ -18,7 +18,7 @@ export interface PokemonInformation {
     };
   };
   mode?: Mode;
-  clickEvent?: (data: string, callback: () => void) => void;
+  setSearchRequest?: (data: string) => void;
 }
 
 export interface PokemonTypeProps {
@@ -36,7 +36,7 @@ export interface PokemonAbilityProps {
 export interface PokemonListProps {
   name: string;
   image: string;
-  clickEvent?: (data: string, callback: () => void) => void;
+  setSearchRequest: (data: string) => void;
 }
 
 export interface PokemonCurrentProps {

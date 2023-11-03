@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import SearchErrorMessage from './SearchErrorMessage.tsx';
 import SearchBox from './SearchBox.tsx';
 
@@ -7,95 +7,23 @@ import { SearchProps } from '../../interfaces/Search.ts';
 
 import styles from './Search.module.css';
 
-class Search extends React.PureComponent<SearchProps> {
-  state = {
-    requestUrl: 'https://pokeapi.co/api/v2/pokemon/' as string,
-    isErrorVisible: false as boolean,
-    loadingDelay: 1500 as number,
-  };
+function Search(props: SearchProps) {
+  const [requestUrl] = useState<string>('https://pokeapi.co/api/v2/pokemon/');
+  const [loadingDelay] = useState<number>(1500);
+  const [isErrorVisible, setIsErrorVisible] = useState<boolean>(false);
 
-  hasMounted = false;
+  const hasMounted = useRef(false);
+  const prevSearchRequest = useRef<string>('');
 
-  componentDidMount() {
-    if (!this.hasMounted) {
-      this.hasMounted = true;
-      const { setSearchRequest } = this.props;
+  const { setPokemonList, setCurrentPokemon, setMode, searchRequset } = props;
+  const { setSearchRequest, setIsLoading, isErrorBoundary } = props;
 
-      setSearchRequest(localStorage.getItem('last-request') || '', this.getPokemonData);
-    }
+  if (isErrorBoundary) {
+    throw new Error('Test message to check ErrorBoundary operation');
   }
 
-  // Change component state
-  setIsErrorVisible = (data: boolean): void => {
-    this.setState(() => ({ isErrorVisible: data }));
-  };
-
-  // Data acquisition and processing
-  getPokemonData = () => {
-    const { requestUrl } = this.state;
-    const { setCurrentPokemon, setPokemonList } = this.props;
-    const { setMode, searchRequset, setIsLoading } = this.props;
-
-    localStorage.setItem('last-request', searchRequset);
-
-    // Start Loading
-    setIsLoading(true);
-
-    fetch(`${requestUrl}${searchRequset}`)
-      .then((response) => response.json())
-      .then((json) => {
-        if (json.results) {
-          setMode('list');
-          setPokemonList([]);
-          this.getListOfPokemon(json.results);
-        } else {
-          setMode('current');
-          this.getCurrentPokemon(json, setCurrentPokemon);
-        }
-
-        this.setIsErrorVisible(false);
-      })
-      .catch(() => {
-        this.setIsErrorVisible(true);
-        setIsLoading(false);
-      });
-  };
-
-  // Get list of pokemons
-  getListOfPokemon = (array: PokemonShortInformation[]): void => {
-    const { loadingDelay } = this.state;
-    const { setPokemonList, setIsLoading } = this.props;
-    const arrayOfPromise: Promise<PokemonInformation>[] = [];
-
-    // Create array of Promise
-    array.forEach((item: PokemonShortInformation): void => {
-      arrayOfPromise.push(fetch(item.url).then((resp) => resp.json()));
-    });
-
-    // Get all pokemon information
-    Promise.all(arrayOfPromise).then((results: PokemonInformation[]): void => {
-      results.forEach((pokemon: PokemonInformation): void => {
-        this.getCurrentPokemon(pokemon, setPokemonList);
-      });
-
-      setTimeout((): void => setIsLoading(false), loadingDelay);
-    });
-  };
-
-  // Get current pokemon
-  getCurrentPokemon = (
-    pokemon: PokemonInformation,
-    callback: (pokemon: PokemonInformation) => void
-  ): void => {
-    const { loadingDelay } = this.state;
-    const { setIsLoading } = this.props;
-
-    callback(this.serializePokemonData(pokemon));
-    setTimeout((): void => setIsLoading(false), loadingDelay);
-  };
-
   // Data conversion
-  serializePokemonData = (pokemon: PokemonInformation): PokemonInformation => {
+  const serializePokemonData = useCallback((pokemon: PokemonInformation): PokemonInformation => {
     const sprites = pokemon.sprites?.other?.['official-artwork']?.front_default;
 
     return {
@@ -106,35 +34,116 @@ class Search extends React.PureComponent<SearchProps> {
       stats: pokemon.stats,
       types: pokemon.types,
     };
-  };
+  }, []);
 
-  render() {
-    const { isErrorVisible } = this.state;
-    const { searchRequset, setSearchRequest, isErrorBoundary } = this.props;
+  // Get current pokemon
+  const getCurrentPokemon = useCallback(
+    (pokemon: PokemonInformation, callback: (pokemon: PokemonInformation) => void): void => {
+      callback(serializePokemonData(pokemon));
+      setTimeout((): void => setIsLoading(false), loadingDelay);
+    },
+    [serializePokemonData, setIsLoading, loadingDelay]
+  );
 
-    if (isErrorBoundary) {
-      throw new Error('Test message to check ErrorBoundary operation');
+  // Get list of pokemons
+  const getListOfPokemon = useCallback(
+    (array: PokemonShortInformation[]): void => {
+      const arrayOfPromise: Promise<PokemonInformation>[] = [];
+
+      // Create array of Promise
+      array.forEach((item: PokemonShortInformation): void => {
+        arrayOfPromise.push(fetch(item.url).then((resp) => resp.json()));
+      });
+
+      // Get all pokemon information
+      Promise.all(arrayOfPromise).then((results: PokemonInformation[]): void => {
+        results.forEach((pokemon: PokemonInformation): void => {
+          getCurrentPokemon(pokemon, setPokemonList);
+        });
+
+        setTimeout((): void => setIsLoading(false), loadingDelay);
+      });
+    },
+    [getCurrentPokemon, setPokemonList, setIsLoading, loadingDelay]
+  );
+
+  // Data acquisition and processing
+  const getPokemonData = useCallback(() => {
+    localStorage.setItem('last-request', searchRequset);
+
+    // Start Loading
+    setIsLoading(true);
+
+    fetch(`${requestUrl}${searchRequset}`)
+      .then((response) => response.json())
+      .then((json) => {
+        setPokemonList([]);
+
+        if (json.results) {
+          setMode('list');
+          getListOfPokemon(json.results);
+        } else {
+          setMode('current');
+          getCurrentPokemon(json, setCurrentPokemon);
+        }
+
+        setIsErrorVisible(false);
+      })
+      .catch(() => {
+        setIsErrorVisible(true);
+        setIsLoading(false);
+        localStorage.setItem('last-request', '');
+      });
+  }, [
+    requestUrl,
+    searchRequset,
+    setMode,
+    setPokemonList,
+    getListOfPokemon,
+    getCurrentPokemon,
+    setCurrentPokemon,
+    setIsErrorVisible,
+    setIsLoading,
+  ]);
+
+  useEffect(() => {
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      getPokemonData();
     }
 
-    return (
-      <div className={styles.search}>
-        <h3 className={styles.title}>
-          Use pokemon <span>Name</span> or <span>ID</span> for search
-        </h3>
+    if (searchRequset === '' && prevSearchRequest.current !== '') {
+      getPokemonData();
+    }
 
-        <SearchBox
-          searchRequset={searchRequset}
-          setSearchRequest={setSearchRequest}
-          getPokemonData={this.getPokemonData}
-        />
+    prevSearchRequest.current = searchRequset;
+  }, [searchRequset, getPokemonData]);
 
-        <SearchErrorMessage
-          isErrorVisible={isErrorVisible}
-          setIsErrorVisible={this.setIsErrorVisible}
-        />
+  return (
+    <div className={styles.search}>
+      <div className={styles.ps}>
+        <div>P.s. This API does not have the ability to query by partial match.</div>
+        <div>
+          You can check it here -{' '}
+          <a href="https://pokeapi.co/docs/v2#pokemon" target="_blank" rel="noreferrer">
+            https://pokeapi.co/docs/v2#pokemon
+          </a>
+        </div>
       </div>
-    );
-  }
+
+      <h3 className={styles.title}>
+        Use pokemon <span>Name</span> or <span>ID</span> for search
+      </h3>
+
+      <SearchBox
+        searchRequset={searchRequset}
+        setSearchRequest={setSearchRequest}
+        getPokemonData={getPokemonData}
+      />
+
+      <SearchErrorMessage isErrorVisible={isErrorVisible} setIsErrorVisible={setIsErrorVisible} />
+    </div>
+  );
 }
 
 export default Search;

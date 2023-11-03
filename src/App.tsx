@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 
 import Search from './components/Search/Search.tsx';
 import Result from './components/Result/Result.tsx';
@@ -6,80 +6,58 @@ import Loader from './components/Ui/Loader.tsx';
 import ErrorBoundaryButton from './components/ErrorBoundary/ErrorBoundaryButton.tsx';
 
 import { PokemonInformation, Mode } from './interfaces/Pokemon.ts';
-import { ResultProps } from './interfaces/Result.ts';
 
 import './App.css';
 
-class App extends React.PureComponent {
-  state = {
-    mode: 'list' as Mode, // list | current
-    pokemonList: [] as PokemonInformation[],
-    currentPokemon: {} as PokemonInformation,
-    searchRequset: '' as string,
-    isLoading: false as boolean,
-    isErrorBoundary: false as boolean,
-  };
+function App() {
+  const [mode, setMode] = useState<Mode>('list');
+  const [pokemonList, setPokemonList] = useState<PokemonInformation[] | []>([]);
+  const [currentPokemon, setCurrentPokemon] = useState<PokemonInformation>({
+    id: 0,
+    name: '',
+    image: '',
+    abilities: [],
+    stats: [],
+    types: [],
+  });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isErrorBoundary, setIsErrorBoundary] = useState<boolean>(false);
+  const [searchRequset, setSearchRequest] = useState<string>(
+    localStorage.getItem('last-request') || ''
+  );
 
   // Change component state
-  setPokemonList = (data: PokemonInformation | []): void => {
-    this.setState((prev: ResultProps) => ({
-      pokemonList: !Array.isArray(data) ? [...prev.pokemonList, data] : [],
-    }));
-  };
-
-  setCurrentPokemon = (data: PokemonInformation): void => {
-    this.setState(() => ({ currentPokemon: { ...data } }));
-  };
-
-  setMode = (data: Mode): void => {
-    this.setState(() => ({ mode: data }));
-  };
-
-  setIsLoading = (data: boolean): void => {
-    this.setState(() => ({ isLoading: data }));
-  };
-
-  setSearchRequest = (data: string, callback: () => void): void => {
-    this.setState(
-      () => ({ searchRequset: data }),
-      () => callback()
+  const updatePokemonList = (data: PokemonInformation | []): void => {
+    setPokemonList((previous: PokemonInformation[] | []): PokemonInformation[] | [] =>
+      !Array.isArray(data) ? [...previous, data] : []
     );
   };
 
-  setIsErrorBoundary = (data: boolean): void => {
-    this.setState(() => ({ isErrorBoundary: data }));
-  };
+  return (
+    <div className="App">
+      <Search
+        setPokemonList={updatePokemonList}
+        setCurrentPokemon={setCurrentPokemon}
+        setMode={setMode}
+        searchRequset={searchRequset}
+        setSearchRequest={setSearchRequest}
+        setIsLoading={setIsLoading}
+        isErrorBoundary={isErrorBoundary}
+      />
+      <Result
+        pokemonList={pokemonList}
+        currentPokemon={currentPokemon}
+        mode={mode}
+        setSearchRequest={setSearchRequest}
+      />
+      <Loader isLoading={isLoading} />
 
-  render() {
-    const { pokemonList, currentPokemon, mode } = this.state;
-    const { searchRequset, isLoading, isErrorBoundary } = this.state;
-
-    return (
-      <div className="App">
-        <Search
-          setPokemonList={this.setPokemonList}
-          setCurrentPokemon={this.setCurrentPokemon}
-          setMode={this.setMode}
-          searchRequset={searchRequset}
-          setSearchRequest={this.setSearchRequest}
-          setIsLoading={this.setIsLoading}
-          isErrorBoundary={isErrorBoundary}
-        />
-        <Result
-          pokemonList={pokemonList}
-          currentPokemon={currentPokemon}
-          mode={mode}
-          setSearchRequest={this.setSearchRequest}
-        />
-        <Loader isLoading={isLoading} />
-
-        <ErrorBoundaryButton
-          setIsErrorBoundary={this.setIsErrorBoundary}
-          isErrorBoundary={isErrorBoundary}
-        />
-      </div>
-    );
-  }
+      <ErrorBoundaryButton
+        setIsErrorBoundary={setIsErrorBoundary}
+        isErrorBoundary={isErrorBoundary}
+      />
+    </div>
+  );
 }
 
 export default App;

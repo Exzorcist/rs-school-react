@@ -3,7 +3,7 @@ import { PokemonInformation, Mode } from './Pokemon.ts';
 export interface SearchProps {
   setPokemonList: (data: PokemonInformation | []) => void;
   setCurrentPokemon: (data: PokemonInformation) => void;
-  setSearchRequest: (data: string, callback: () => void) => void;
+  setSearchRequest: (data: string) => void;
   setMode: (data: Mode) => void;
   setIsLoading: (data: boolean) => void;
   searchRequset: string;
@@ -18,5 +18,5 @@ export interface SearchErrorProps {
 export interface SearchBoxProps {
   searchRequset: string;
   getPokemonData: () => void;
-  setSearchRequest: (data: string, callback: () => void) => void;
+  setSearchRequest: (data: string) => void;
 }
