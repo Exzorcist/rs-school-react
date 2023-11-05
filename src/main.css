@@ -1,0 +1,23 @@
+:root {
+  --color1: #610c9f;
+  --color2: #940b92;
+  --color3: #da0c81;
+  --color4: #e95793;
+  --color5: #ffffff;
+  --color6: #999999;
+
+  --bg-loader: rgba(255, 255, 255, 0.5);
+  --bg-screen: rgba(97, 12, 159, 0.5);
+  --bg-current: rgb(233, 87, 147, 0.25);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color4);
+  color: var(--color5);
+  font: 1.6rem sans-serif;
+}

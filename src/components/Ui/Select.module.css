@@ -1,0 +1,65 @@
+.select {
+  position: relative;
+  padding: 4px;
+  font-size: 1.3rem;
+  border-radius: 8px;
+  background-color: var(--color1);
+  color: var(--color5);
+}
+
+.placeholder {
+  display: flex;
+  gap: 12px;
+  padding: 6px 12px;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+}
+
+.arrow::before {
+  content: '\25bc';
+  font-size: 1rem;
+}
+
+.options {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  z-index: 10;
+
+  display: grid;
+  gap: 6px;
+  padding: 8px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+
+  background-color: var(--color1);
+  color: var(--color5);
+  font-size: 1.4rem;
+  transition: 0.3s;
+}
+
+.options span {
+  padding: 8px 38px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.options span:hover {
+  background-color: var(--color2);
+}
+
+.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.active {
+  background-color: var(--color2);
+}

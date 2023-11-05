@@ -1,0 +1,28 @@
+.error {
+  display: grid;
+  gap: 8px;
+  max-width: 768px;
+  margin: 60px auto;
+  text-align: center;
+}
+
+.title {
+  color: var(--color1);
+}
+
+.subtitle {
+  color: var(--color2);
+  font-weight: 400;
+}
+
+.message {
+  margin-top: 32px;
+  padding: 12px;
+
+  border-radius: 16px;
+  border: 2px dashed var(--color5);
+
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+  text-align: center;
+}
