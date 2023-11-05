@@ -1,3 +1,9 @@
+export interface PokemonList {
+  previous: string | null;
+  next: string | null;
+  results: PokemonShortInformation[];
+}
+
 export interface PokemonShortInformation {
   name: string;
   url: string;
@@ -17,8 +23,6 @@ export interface PokemonInformation {
       };
     };
   };
-  mode?: Mode;
-  setSearchRequest?: (data: string) => void;
 }
 
 export interface PokemonTypeProps {
@@ -33,18 +37,12 @@ export interface PokemonAbilityProps {
   abilities: PokemonAbilities[];
 }
 
-export interface PokemonListProps {
-  name: string;
-  image: string;
-  setSearchRequest: (data: string) => void;
-}
-
-export interface PokemonCurrentProps {
-  name: string;
-  image: string;
-  abilities: PokemonAbilities[];
-  stats: PokemonStats[];
-  types: PokemonType[];
+export interface OutletContext {
+  setCurrentPage: (data: string | undefined) => void;
+  setIsFirstPage: (data: boolean) => void;
+  setIsLastPage: (data: boolean) => void;
+  setIsPagerShow: (data: boolean) => void;
+  currentLimit: number;
 }
 
 export interface PokemonType {
@@ -65,5 +63,3 @@ export interface PokemonAbilities {
     name: string;
   };
 }
-
-export type Mode = 'list' | 'current';

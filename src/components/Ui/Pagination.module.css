@@ -1,7 +1,7 @@
 .pagination {
   display: flex;
-  gap: 16px;
   align-items: center;
+  gap: 16px;
 }
 
 .pager {
@@ -42,34 +42,4 @@
 .hidden {
   opacity: 0.5;
   pointer-events: none;
-}
-
-.select {
-  padding: 4px;
-  font-size: 1.3rem;
-  border-radius: 8px;
-  background-color: var(--color1);
-}
-
-.select [class*="control"] {
-  display: flex;
-  gap: 4px;
-  border-color: var(--color1) !important;
-  background-color: var(--color1);
-  box-shadow: none;
-  cursor: pointer;
-}
-
-.select [class*="placeholder"],
-.select [class*="indicatorContainer"] {
-  color: var(--color5) !important;
-}
-
-.select [class*="indicatorSeparator"] {
-  background-color: var(--color5);
-}
-
-.select [class*="menu"] {
-  background-color: var(--color1);
-  color: var(--color5);
 }

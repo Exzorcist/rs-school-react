@@ -1,8 +1,11 @@
 import { NavLink } from 'react-router-dom';
-import Select from 'react-select';
+import Select from './Select.tsx';
+import { PaginationProps } from '../../interfaces/Ui.ts';
 import styles from './Pagination.module.css';
 
-function Pagination({ page, isFirstPage, isLastPage, setCurrentLimit, currentLimit, isPagerShow }) {
+function Pagination(props: PaginationProps) {
+  const { page, isFirstPage, isLastPage, setCurrentLimit, currentLimit, isPagerShow } = props;
+
   return (
     <div className={styles.pagination}>
       {isPagerShow && (
@@ -23,30 +26,7 @@ function Pagination({ page, isFirstPage, isLastPage, setCurrentLimit, currentLim
         </div>
       )}
 
-      <div className={styles.limit}>
-        <Select
-          className={styles.select}
-          placeholder={currentLimit}
-          isSearchable={false}
-          value={currentLimit}
-          onChange={(e) => {
-            setCurrentLimit(+e.value);
-          }}
-          options={[
-            { value: '10', label: '10' },
-            { value: '15', label: '15' },
-            { value: '20', label: '20' },
-          ]}
-          theme={(theme) => ({
-            ...theme,
-            colors: {
-              ...theme.colors,
-              primary25: '#e95793',
-              primary50: '#e95793',
-            },
-          })}
-        />
-      </div>
+      <Select currentLimit={currentLimit} setCurrentLimit={setCurrentLimit} />
     </div>
   );
 }

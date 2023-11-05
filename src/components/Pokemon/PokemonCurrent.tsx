@@ -1,15 +1,19 @@
 import { useParams, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+
 import PokemonAbility from './Figure/PokemonAbility.tsx';
 import PokemonType from './Figure/PokemonType.tsx';
 import PokemonStats from './Figure/PokemonStats.tsx';
 import NotFound from '../NotFound/NotFound.tsx';
+
+import { PokemonInformation } from '../../interfaces/Pokemon.ts';
+
 import styles from './PokemonCurrent.module.css';
 
 function PokemonCurrent() {
   const { page, name } = useParams();
   const [isPokemonExist, setIsPokemonExist] = useState<boolean>(true);
-  const [currentPokemon, setCurrentPokemon] = useState({
+  const [currentPokemon, setCurrentPokemon] = useState<PokemonInformation>({
     id: 0,
     name: '',
     image:
@@ -19,21 +23,23 @@ function PokemonCurrent() {
     types: [],
   });
 
-  useEffect(() => {
+  useEffect((): void => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
-      .then((response) => response.json())
-      .then((json) => {
+      .then((response): Promise<PokemonInformation> => response.json())
+      .then((json: PokemonInformation): void => {
+        const sprites = json.sprites?.other?.['official-artwork']?.front_default;
         setIsPokemonExist(true);
+
         setCurrentPokemon({
           id: json.id,
           name: json.name,
           abilities: json.abilities,
-          image: json.sprites?.other?.['official-artwork']?.front_default,
+          image: sprites as string,
           stats: json.stats,
           types: json.types,
         });
       })
-      .catch(() => setIsPokemonExist(false));
+      .catch((): void => setIsPokemonExist(false));
   }, [name]);
 
   return (
