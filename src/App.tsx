@@ -7,9 +7,9 @@ import {
 } from 'react-router-dom';
 
 import Root from './layout/Root.tsx';
-import PokemonsList from './pages/PokemonsList.tsx';
-import PokemonCurrent from './pages/PokemonCurrent.tsx';
-import NotFound from './pages/NotFound.tsx';
+import PokemonsList from './components/Pokemon/PokemonsList.tsx';
+import PokemonCurrent from './components/Pokemon/PokemonCurrent.tsx';
+import NotFound from './components/NotFound/NotFound.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

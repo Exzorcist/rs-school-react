@@ -1,8 +1,8 @@
 import { useParams, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import PokemonAbility from '../components/Pokemon/Figure/PokemonAbility.tsx';
-import PokemonType from '../components/Pokemon/Figure/PokemonType.tsx';
-import PokemonStats from '../components/Pokemon/Figure/PokemonStats.tsx';
+import PokemonAbility from './Figure/PokemonAbility.tsx';
+import PokemonType from './Figure/PokemonType.tsx';
+import PokemonStats from './Figure/PokemonStats.tsx';
 import styles from './PokemonCurrent.module.css';
 
 function PokemonCurrent() {

@@ -1,7 +1,7 @@
 import { useParams, useOutlet, NavLink } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
-import Pagination from './Pagination.tsx';
-import Loader from '../components/Ui/Loader.tsx';
+import Pagination from '../Ui/Pagination.tsx';
+import Loader from '../Ui/Loader.tsx';
 import styles from './PokemonsList.module.css';
 
 function PokemonsList() {

@@ -12,9 +12,9 @@
   position: sticky;
   top: 24px;
   display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 335px;
+  flex-direction: column;
+  width: 100%;
+  max-width: 335px;
   padding: 32px;
   border-radius: 16px;
   border: 2px dashed var(--color5);
