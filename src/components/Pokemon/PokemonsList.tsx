@@ -1,32 +1,39 @@
-import { useParams, useOutlet, NavLink } from 'react-router-dom';
+import { useParams, Outlet, useOutletContext, NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
-import Pagination from '../Ui/Pagination.tsx';
 import Loader from '../Ui/Loader.tsx';
 import styles from './PokemonsList.module.css';
 
 function PokemonsList() {
   const { page } = useParams();
-  const outlet = useOutlet();
+  const navigate = useNavigate();
+  const [setCurrentPage, setIsFirstPage, setIsLastPage, currentLimit, setIsPagerShow] =
+    useOutletContext();
   const prevPageState = useRef<string | undefined>('');
+  const prevLimitState = useRef<number>(currentLimit);
   const [pokemonList, setPokemonList] = useState([]);
-  const [isFirstPage, setIsFirstPage] = useState(true);
-  const [isLastPage, setIsLastPage] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDataGetting, setIsDataGetting] = useState<boolean>(false);
 
   useEffect(() => {
-    if (prevPageState.current !== page) {
-      const limit: number = 20;
-      const offset: number | string | undefined = page && limit * +page - 20;
+    setCurrentPage(page);
+
+    if (prevPageState.current !== page || prevLimitState.current !== currentLimit) {
+      let offset: number | string | undefined = page && currentLimit * +page - currentLimit;
+
+      if (prevLimitState.current !== currentLimit) {
+        setCurrentPage(1);
+        offset = 0;
+        navigate('/page/1', { replace: true });
+        setPokemonList([]);
+      }
+
       const arrayOfPromises = [];
 
       setIsLoading(true);
 
-      fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}"`)
+      fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${currentLimit}`)
         .then((response) => response.json())
         .then((json) => {
-          setPokemonList([]);
-
           if (!json.previous) {
             setIsFirstPage(true);
           } else {
@@ -46,27 +53,34 @@ function PokemonsList() {
           // Get all pokemon information
           Promise.all(arrayOfPromises).then((results) => {
             results.forEach((pokemon) => {
-              setPokemonList((previous) => [
-                ...previous,
-                {
-                  id: pokemon.id,
-                  name: pokemon.name,
-                  abilities: pokemon.abilities,
-                  image: pokemon.sprites?.other?.['official-artwork']?.front_default,
-                  stats: pokemon.stats,
-                  types: pokemon.types,
-                },
-              ]);
+              setPokemonList((previous) => {
+                const array = previous.length < currentLimit ? previous : previous.slice(1);
+
+                return [
+                  ...array,
+                  {
+                    id: pokemon.id,
+                    name: pokemon.name,
+                    abilities: pokemon.abilities,
+                    image: pokemon.sprites?.other?.['official-artwork']?.front_default,
+                    stats: pokemon.stats,
+                    types: pokemon.types,
+                  },
+                ];
+              });
             });
 
             setIsLoading(false);
             setIsDataGetting(true);
           });
+
+          setIsPagerShow(true);
         });
 
       prevPageState.current = page;
+      prevLimitState.current = currentLimit;
     }
-  }, [page]);
+  }, [page, currentLimit, navigate, setCurrentPage, setIsFirstPage, setIsLastPage, setIsPagerShow]);
 
   return (
     <>
@@ -84,12 +98,10 @@ function PokemonsList() {
           ))}
         </div>
 
-        {outlet}
+        <Outlet />
       </div>
 
-      {isDataGetting && (
-        <Pagination page={page} isFirstPage={isFirstPage} isLastPage={isLastPage} />
-      )}
+      {isDataGetting}
 
       <Loader isLoading={isLoading} />
     </>

@@ -28,8 +28,10 @@ const router = createBrowserRouter(
         element={<PokemonsList />}
         errorElement={<NotFound />}
       >
+        <Route path="pokemon/" element={<Navigate replace to="/page/1" />} />
         <Route path="pokemon/:name" element={<PokemonCurrent />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );
