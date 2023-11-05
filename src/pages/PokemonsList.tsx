@@ -71,7 +71,7 @@ function PokemonsList() {
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={`${styles.list} ${outlet ? styles.data : ''}`}>
+        <div className={styles.list}>
           {pokemonList.map((item) => (
             <NavLink
               key={item.id}
