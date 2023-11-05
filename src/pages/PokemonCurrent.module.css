@@ -1,0 +1,37 @@
+.title {
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--color1);
+
+  color: var(--color1);
+  font-size: 3rem;
+  line-height: 1.4rem;
+  text-transform: capitalize;
+}
+
+.wrapper {
+  position: sticky;
+  top: 24px;
+  padding: 32px;
+  border-radius: 16px;
+  border: 2px dashed var(--color5);
+  background-color: var(--bg-current);
+}
+
+.close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  text-decoration: none;
+  color: white;
+  font-size: 2.2rem;
+  transform: rotate(45deg);
+  border: 2px solid;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 3px 3px 3px;
+  border-radius: 50%;
+}
