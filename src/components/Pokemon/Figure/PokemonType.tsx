@@ -1,7 +1,9 @@
-import { PokemonTypeProps } from '../../../interfaces/Pokemon.ts';
+import { usePokemonCurrentContext } from '../../../provider/PokemonCurrentProvider.tsx';
 import styles from './PokemonType.module.css';
 
-function PokemonType({ types }: PokemonTypeProps) {
+function PokemonType() {
+  const { types } = usePokemonCurrentContext();
+
   return (
     <div className={styles.box}>
       <h3 className={styles.title}>Type:</h3>

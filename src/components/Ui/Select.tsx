@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { SelectProps } from '../../interfaces/Ui.ts';
+import { useRootContext } from '../../provider/RootProvider.tsx';
 import styles from './Select.module.css';
 
-function Select(props: SelectProps) {
-  const { currentLimit, setCurrentLimit } = props;
+function Select() {
+  const { currentLimit, setCurrentLimit } = useRootContext();
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const arrayOfOptions: number[] = [10, 15, 20];
 

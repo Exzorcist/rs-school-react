@@ -25,18 +25,6 @@ export interface PokemonInformation {
   };
 }
 
-export interface PokemonTypeProps {
-  types: PokemonType[];
-}
-
-export interface PokemonStatsProps {
-  stats: PokemonStats[];
-}
-
-export interface PokemonAbilityProps {
-  abilities: PokemonAbilities[];
-}
-
 export interface OutletContext {
   setCurrentPage: (data: string | undefined) => void;
   setIsFirstPage: (data: boolean) => void;

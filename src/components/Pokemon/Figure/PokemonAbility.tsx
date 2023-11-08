@@ -1,7 +1,9 @@
-import { PokemonAbilityProps } from '../../../interfaces/Pokemon.ts';
+import { usePokemonCurrentContext } from '../../../provider/PokemonCurrentProvider.tsx';
 import styles from './PokemonAbility.module.css';
 
-function PokemonAbility({ abilities }: PokemonAbilityProps) {
+function PokemonAbility() {
+  const { abilities } = usePokemonCurrentContext();
+
   return (
     <div className={styles.box}>
       <h3 className={styles.title}>Abilities:</h3>

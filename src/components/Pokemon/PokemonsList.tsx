@@ -1,9 +1,10 @@
-import { useParams, Outlet, useOutletContext, NavLink, useNavigate } from 'react-router-dom';
+import { useParams, Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
+import { useRootContext } from '../../provider/RootProvider.tsx';
+import { PokemonListProvider } from '../../provider/PokemonListProvider.tsx';
 
 import Loader from '../Ui/Loader.tsx';
 import {
-  OutletContext,
   PokemonInformation,
   PokemonList,
   PokemonShortInformation,
@@ -14,8 +15,10 @@ import styles from './PokemonsList.module.css';
 function PokemonsList() {
   const { page } = useParams();
   const navigate = useNavigate();
-  const { setCurrentPage, setIsFirstPage, setIsLastPage, currentLimit, setIsPagerShow } =
-    useOutletContext<OutletContext>();
+
+  const { setCurrentPage, setIsFirstPage, setIsLastPage } = useRootContext();
+  const { setIsPagerShow, currentLimit } = useRootContext();
+
   const prevPageState = useRef<string | undefined>('');
   const prevLimitState = useRef<number>(currentLimit);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -23,7 +26,7 @@ function PokemonsList() {
 
   useEffect(() => {
     const afterChangeLimit = () => {
-      setCurrentPage('1');
+      setCurrentPage(1);
       navigate('/page/1', { replace: true });
       setPokemonList([]);
     };
@@ -42,7 +45,9 @@ function PokemonsList() {
       }
     };
 
-    setCurrentPage(page);
+    if (page) {
+      setCurrentPage(+page);
+    }
 
     if (prevPageState.current !== page || prevLimitState.current !== currentLimit) {
       const calc: number | string | undefined = page && currentLimit * +page - currentLimit;
@@ -96,7 +101,7 @@ function PokemonsList() {
   }, [page, currentLimit, navigate, setCurrentPage, setIsFirstPage, setIsLastPage, setIsPagerShow]);
 
   return (
-    <>
+    <PokemonListProvider value={{ isLoading, setIsLoading }}>
       <div className={styles.wrapper}>
         <div className={styles.list}>
           {pokemonList.map((item) => (
@@ -114,8 +119,8 @@ function PokemonsList() {
         <Outlet />
       </div>
 
-      <Loader isLoading={isLoading} />
-    </>
+      <Loader />
+    </PokemonListProvider>
   );
 }
 

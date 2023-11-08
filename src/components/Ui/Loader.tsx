@@ -1,8 +1,10 @@
+import { usePokemonListContext } from '../../provider/PokemonListProvider.tsx';
 import LoaderIcon from './LoaderIcon.tsx';
-import { LoaderProps } from '../../interfaces/Ui.ts';
 import styles from './Loader.module.css';
 
-function Loader({ isLoading }: LoaderProps) {
+function Loader() {
+  const { isLoading } = usePokemonListContext();
+
   return (
     <div className={`${styles.loader} ${isLoading ? styles.show : ''}`}>
       <LoaderIcon />

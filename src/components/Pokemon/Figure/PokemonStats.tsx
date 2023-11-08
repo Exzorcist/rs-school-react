@@ -1,7 +1,9 @@
-import { PokemonStatsProps } from '../../../interfaces/Pokemon.ts';
+import { usePokemonCurrentContext } from '../../../provider/PokemonCurrentProvider.tsx';
 import styles from './PokemonStats.module.css';
 
-function PokemonStats({ stats }: PokemonStatsProps) {
+function PokemonStats() {
+  const { stats } = usePokemonCurrentContext();
+
   return (
     <div className={styles.box}>
       <h3 className={styles.title}>Stats:</h3>

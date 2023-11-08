@@ -1,10 +1,11 @@
 import { NavLink } from 'react-router-dom';
+import { useRootContext } from '../../provider/RootProvider.tsx';
+
 import Select from './Select.tsx';
-import { PaginationProps } from '../../interfaces/Ui.ts';
 import styles from './Pagination.module.css';
 
-function Pagination(props: PaginationProps) {
-  const { page, isFirstPage, isLastPage, setCurrentLimit, currentLimit, isPagerShow } = props;
+function Pagination() {
+  const { currentPage, isFirstPage, isLastPage, isPagerShow } = useRootContext();
 
   return (
     <div className={styles.pagination}>
@@ -12,21 +13,21 @@ function Pagination(props: PaginationProps) {
         <div className={styles.pager}>
           <NavLink
             className={`${styles.prev} ${isFirstPage ? styles.hidden : ''}`}
-            to={`/page/${page && +page - 1}`}
+            to={`/page/${currentPage && +currentPage - 1}`}
           >
             prev
           </NavLink>
-          <span>{page}</span>
+          <span>{currentPage}</span>
           <NavLink
             className={`${styles.next} ${isLastPage ? styles.hidden : ''}`}
-            to={`/page/${page && +page + 1}`}
+            to={`/page/${currentPage && +currentPage + 1}`}
           >
             next
           </NavLink>
         </div>
       )}
 
-      <Select currentLimit={currentLimit} setCurrentLimit={setCurrentLimit} />
+      <Select />
     </div>
   );
 }

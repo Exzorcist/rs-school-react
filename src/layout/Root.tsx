@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 
+import { RootProvider } from '../provider/RootProvider.tsx';
 import Information from '../components/Information/Information.tsx';
 import Pagination from '../components/Ui/Pagination.tsx';
 import ErrorBoundaryButton from '../components/ErrorBoundary/ErrorBoundaryButton.tsx';
@@ -20,33 +21,31 @@ function Root() {
   }
 
   return (
-    <>
+    <RootProvider
+      value={{
+        currentPage,
+        currentLimit,
+        isFirstPage,
+        isLastPage,
+        isPagerShow,
+        setIsFirstPage,
+        setCurrentLimit,
+        setCurrentPage,
+        setIsLastPage,
+        setIsPagerShow,
+      }}
+    >
       <div className={styles.main}>
         <Information />
 
         <div className={styles.wrapper}>
           <h2 className={styles.title}>Click to pokemon to see details.</h2>
-          <Pagination
-            page={currentPage}
-            isFirstPage={isFirstPage}
-            isLastPage={isLastPage}
-            setCurrentLimit={setCurrentLimit}
-            currentLimit={currentLimit}
-            isPagerShow={isPagerShow}
-          />
+          <Pagination />
         </div>
 
         <section className={styles.box}>
           <div className={styles.screen}>
-            <Outlet
-              context={{
-                setCurrentPage,
-                setIsFirstPage,
-                setIsLastPage,
-                setIsPagerShow,
-                currentLimit,
-              }}
-            />
+            <Outlet />
           </div>
 
           <div className={styles.panel}>
@@ -61,7 +60,7 @@ function Root() {
         setIsErrorBoundary={setIsErrorBoundary}
         isErrorBoundary={isErrorBoundary}
       />
-    </>
+    </RootProvider>
   );
 }
 

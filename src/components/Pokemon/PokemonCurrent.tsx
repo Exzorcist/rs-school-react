@@ -1,5 +1,6 @@
 import { useParams, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { PokemonCurrentProvider } from '../../provider/PokemonCurrentProvider.tsx';
 
 import PokemonAbility from './Figure/PokemonAbility.tsx';
 import PokemonType from './Figure/PokemonType.tsx';
@@ -43,31 +44,39 @@ function PokemonCurrent() {
   }, [name]);
 
   return (
-    <div className={styles.wrapper}>
-      {isPokemonExist && (
-        <>
-          <img
-            className={styles.image}
-            src={currentPokemon.image}
-            width="300"
-            height="300"
-            alt={currentPokemon.name}
-          />
-          <div>
-            <h4 className={styles.title}>{name}</h4>
-            <PokemonType types={currentPokemon.types} />
-            <PokemonAbility abilities={currentPokemon.abilities} />
-            <PokemonStats stats={currentPokemon.stats} />
-          </div>
-        </>
-      )}
+    <PokemonCurrentProvider
+      value={{
+        types: currentPokemon.types,
+        abilities: currentPokemon.abilities,
+        stats: currentPokemon.stats,
+      }}
+    >
+      <div className={styles.wrapper}>
+        {isPokemonExist && (
+          <>
+            <img
+              className={styles.image}
+              src={currentPokemon.image}
+              width="300"
+              height="300"
+              alt={currentPokemon.name}
+            />
+            <div>
+              <h4 className={styles.title}>{name}</h4>
+              <PokemonType />
+              <PokemonAbility />
+              <PokemonStats />
+            </div>
+          </>
+        )}
 
-      {!isPokemonExist && <NotFound />}
+        {!isPokemonExist && <NotFound />}
 
-      <NavLink className={styles.close} to={`/page/${page && +page}`}>
-        +
-      </NavLink>
-    </div>
+        <NavLink className={styles.close} to={`/page/${page && +page}`}>
+          +
+        </NavLink>
+      </div>
+    </PokemonCurrentProvider>
   );
 }
 
