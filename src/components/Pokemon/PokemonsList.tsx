@@ -9,6 +9,7 @@ import {
   PokemonList,
   PokemonShortInformation,
 } from '../../interfaces/Pokemon.ts';
+import clearImageUrl from '../../helper/clearImageUrl.tsx';
 
 import styles from './PokemonsList.module.css';
 
@@ -81,7 +82,7 @@ function PokemonsList() {
                     id: pokemon.id,
                     name: pokemon.name,
                     abilities: pokemon.abilities,
-                    image: sprites as string,
+                    image: clearImageUrl(sprites),
                     stats: pokemon.stats,
                     types: pokemon.types,
                   },

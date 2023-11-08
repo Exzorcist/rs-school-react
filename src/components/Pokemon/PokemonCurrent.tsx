@@ -8,6 +8,7 @@ import PokemonStats from './Figure/PokemonStats.tsx';
 import NotFound from '../NotFound/NotFound.tsx';
 
 import { PokemonInformation } from '../../interfaces/Pokemon.ts';
+import clearImageUrl from '../../helper/clearImageUrl.tsx';
 
 import styles from './PokemonCurrent.module.css';
 
@@ -35,7 +36,7 @@ function PokemonCurrent() {
           id: json.id,
           name: json.name,
           abilities: json.abilities,
-          image: sprites as string,
+          image: clearImageUrl(sprites),
           stats: json.stats,
           types: json.types,
         });
