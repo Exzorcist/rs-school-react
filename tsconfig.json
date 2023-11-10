@@ -16,7 +16,8 @@
     "isolatedModules": true,
     "noImplicitAny": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["jest"]
   },
   "include": [
     ".eslintrc.cjs",

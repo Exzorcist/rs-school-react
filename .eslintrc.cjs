@@ -21,7 +21,14 @@ module.exports = {
       env: {
         node: true,
       },
-      files: ['.eslintrc.{js,cjs}'],
+      files: ['.eslintrc.{js,cjs}', 'jest.config.{js,cjs}'],
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'plugin:jest/recommended',
+        'plugin:jest/style',
+        "plugin:jest-dom/recommended"
+      ],
+      plugins: ['@typescript-eslint', 'jest'],
       parserOptions: {
         sourceType: 'script',
       },
