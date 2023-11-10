@@ -3,8 +3,12 @@ const config = {
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
   coverageDirectory: 'coverage',
-  collectCoverageFrom: [
-    'src/**/*.tsx'
+  collectCoverageFrom: ['<rootDir>/src/**/*.tsx'],
+  moduleNameMapper: {
+    '\\.css$': 'identity-obj-proxy',
+  },
+  coveragePathIgnorePatterns: [
+    "<rootDir>/src/main.tsx",,
   ],
 };
 

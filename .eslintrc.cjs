@@ -26,7 +26,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:jest/recommended',
         'plugin:jest/style',
-        "plugin:jest-dom/recommended"
+        'plugin:jest-dom/recommended',
       ],
       plugins: ['@typescript-eslint', 'jest'],
       parserOptions: {
@@ -69,5 +69,5 @@ module.exports = {
       },
     ],
   },
-  ignorePatterns: ['vite.config.ts'],
+  ignorePatterns: ['vite.config.ts', 'jest.config.js'],
 };
