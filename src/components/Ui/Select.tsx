@@ -13,6 +13,8 @@ function Select() {
         <div
           className={styles.placeholder}
           onClick={() => setShowDropdown(!showDropdown)}
+          role="button"
+          data-testid="select-placeholder"
           aria-hidden="true"
         >
           <span>{currentLimit}</span>
@@ -20,7 +22,10 @@ function Select() {
           <span className={styles.arrow} />
         </div>
 
-        <div className={`${styles.options} ${showDropdown ? styles.show : ''} `}>
+        <div
+          className={`${styles.options} ${showDropdown ? styles.show : ''} `}
+          data-testid="select-content"
+        >
           {arrayOfOptions.map((option) => (
             <span
               key={option}
@@ -29,6 +34,8 @@ function Select() {
                 setCurrentLimit(option);
                 setShowDropdown(false);
               }}
+              role="button"
+              data-testid={`select-item-${option}`}
               aria-hidden="true"
             >
               {option}

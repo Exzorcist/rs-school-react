@@ -14,7 +14,13 @@ function Information() {
         </p>
         <p>
           You can verify this by looking at the documentation:
-          <a className={styles.link} href={docsLink.current} target="_blank" rel="noreferrer">
+          <a
+            data-testid="info-link"
+            className={styles.link}
+            href={docsLink.current}
+            target="_blank"
+            rel="noreferrer"
+          >
             {docsLink.current}
           </a>
         </p>
