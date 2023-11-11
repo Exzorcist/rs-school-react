@@ -10,7 +10,7 @@ export const useRootContext = () => {
 
   if (!data) {
     throw new Error('Can not "useRootContext" outside of the "RootProvider"');
+  } else {
+    return data;
   }
-
-  return data;
 };

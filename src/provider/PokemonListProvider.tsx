@@ -10,7 +10,7 @@ export const usePokemonListContext = () => {
 
   if (!data) {
     throw new Error('Can not "usePokemonListContext" outside of the "PokemonListProvider"');
+  } else {
+    return data;
   }
-
-  return data;
 };

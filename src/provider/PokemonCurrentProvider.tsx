@@ -10,7 +10,7 @@ export const usePokemonCurrentContext = () => {
 
   if (!data) {
     throw new Error('Can not "usePokemonCurrentContext" outside of the "PokemonCurrentProvider"');
+  } else {
+    return data;
   }
-
-  return data;
 };
