@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": ["dom", "es2015", "es2017", "esnext.asynciterable", "scripthost"],
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -17,7 +17,7 @@
     "noImplicitAny": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["jest"]
+    "types": ["jest", "node"]
   },
   "include": [
     ".eslintrc.cjs",

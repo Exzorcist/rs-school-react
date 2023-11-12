@@ -68,6 +68,7 @@ module.exports = {
         ts: 'always',
       },
     ],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
   ignorePatterns: ['vite.config.ts', 'jest.config.js'],
 };

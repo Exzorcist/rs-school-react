@@ -8,7 +8,8 @@ const config = {
     '\\.css$': 'identity-obj-proxy',
   },
   coveragePathIgnorePatterns: [
-    "<rootDir>/src/main.tsx",,
+    "<rootDir>/src/main.tsx",
+    "<rootDir>/src/App.tsx",
   ],
 };
 
