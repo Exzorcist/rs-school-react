@@ -23,3 +23,9 @@ export interface PokemonCurrentProviderData {
   stats: PokemonStats[];
   abilities: PokemonAbilities[];
 }
+
+export interface SearchProviderData {
+  searchRequest: string;
+  updateSearchRequest: (data: string) => void;
+  showPokemon: () => void;
+}

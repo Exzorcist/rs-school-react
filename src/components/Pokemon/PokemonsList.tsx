@@ -2,8 +2,10 @@ import { useParams, Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { useRootContext } from '../../provider/RootProvider.tsx';
 import { PokemonListProvider } from '../../provider/PokemonListProvider.tsx';
+import { SearchProvider } from '../../provider/SearchProvider.tsx';
 
 import Loader from '../Ui/Loader.tsx';
+import Search from '../Search/Search.tsx';
 import {
   PokemonInformation,
   PokemonList,
@@ -23,7 +25,23 @@ function PokemonsList() {
   const prevPageState = useRef<string | undefined>('');
   const prevLimitState = useRef<number>(currentLimit);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [searchRequest, setSearchRequest] = useState<string>(
+    localStorage.getItem('request') as string
+  );
   const [pokemonList, setPokemonList] = useState<PokemonInformation[] | []>([]);
+
+  const showPokemon = () => {
+    navigate(`/page/${page}/pokemon/${searchRequest}`, { replace: true });
+  };
+
+  const closePokemon = () => {
+    navigate(`/page/${page}`, { replace: true });
+  };
+
+  const updateSearchRequest = (value: string): void => {
+    setSearchRequest(value);
+    if (!value) closePokemon();
+  };
 
   useEffect(() => {
     const afterChangeLimit = () => {
@@ -49,6 +67,8 @@ function PokemonsList() {
     if (page) {
       setCurrentPage(+page);
     }
+
+    localStorage.setItem('request', searchRequest);
 
     if (prevPageState.current !== page || prevLimitState.current !== currentLimit) {
       const calc: number | string | undefined = page && currentLimit * +page - currentLimit;
@@ -99,26 +119,40 @@ function PokemonsList() {
       prevPageState.current = page;
       prevLimitState.current = currentLimit;
     }
-  }, [page, currentLimit, navigate, setCurrentPage, setIsFirstPage, setIsLastPage, setIsPagerShow]);
+  }, [
+    page,
+    currentLimit,
+    searchRequest,
+    navigate,
+    setCurrentPage,
+    setIsFirstPage,
+    setIsLastPage,
+    setIsPagerShow,
+  ]);
 
   return (
     <PokemonListProvider value={{ isLoading, setIsLoading }}>
-      <div className={styles.wrapper}>
-        <div className={styles.list}>
-          {pokemonList.map((item) => (
-            <NavLink
-              key={item.id}
-              className={styles.pokemon}
-              to={`/page/${page && page}/pokemon/${item.name}`}
-            >
-              <img src={item.image} width="150" height="150" alt={item.name} />
-              <h4 className={styles.title}>{item.name}</h4>
-            </NavLink>
-          ))}
-        </div>
+      <SearchProvider value={{ searchRequest, updateSearchRequest, showPokemon }}>
+        <Search />
 
-        <Outlet />
-      </div>
+        <div className={styles.wrapper}>
+          <div className={styles.list}>
+            {pokemonList.map((item) => (
+              <NavLink
+                key={item.id}
+                className={styles.pokemon}
+                to={`/page/${page && page}/pokemon/${item.name}`}
+                onClick={() => setSearchRequest(item.name)}
+              >
+                <img src={item.image} width="150" height="150" alt={item.name} />
+                <h4 className={styles.title}>{item.name}</h4>
+              </NavLink>
+            ))}
+          </div>
+
+          <Outlet />
+        </div>
+      </SearchProvider>
 
       <Loader />
     </PokemonListProvider>

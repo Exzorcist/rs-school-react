@@ -22,3 +22,11 @@
 .link:hover {
   color: var(--color2);
 }
+
+.info {
+  margin-top: 20px;
+  font-weight: 600;
+  letter-spacing: 0.15rem;
+  text-decoration: overline underline;
+  text-underline-offset: 6px;
+}

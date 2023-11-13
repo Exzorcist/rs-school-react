@@ -1,6 +1,7 @@
 import { useParams, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { PokemonCurrentProvider } from '../../provider/PokemonCurrentProvider.tsx';
+import { useSearchContext } from '../../provider/SearchProvider.tsx';
 
 import PokemonAbility from './Figure/PokemonAbility.tsx';
 import PokemonType from './Figure/PokemonType.tsx';
@@ -24,6 +25,7 @@ function PokemonCurrent() {
     stats: [],
     types: [],
   });
+  const { updateSearchRequest } = useSearchContext();
 
   useEffect((): void => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
@@ -63,7 +65,7 @@ function PokemonCurrent() {
               alt={currentPokemon.name}
             />
             <div>
-              <h4 className={styles.title}>{name}</h4>
+              <h4 className={styles.title}>{currentPokemon.name}</h4>
               <PokemonType />
               <PokemonAbility />
               <PokemonStats />
@@ -73,7 +75,11 @@ function PokemonCurrent() {
 
         {!isPokemonExist && <NotFound />}
 
-        <NavLink className={styles.close} to={`/page/${page && +page}`}>
+        <NavLink
+          className={styles.close}
+          to={`/page/${page && +page}`}
+          onClick={() => updateSearchRequest('')}
+        >
           +
         </NavLink>
       </div>

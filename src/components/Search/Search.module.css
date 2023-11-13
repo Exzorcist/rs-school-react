@@ -1,0 +1,60 @@
+.search {
+  margin: 0 auto 64px;
+  width: 100%;
+  max-width: 650px;
+}
+
+.title {
+  margin-bottom: 12px;
+  font-size: 1.7rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.title span {
+  display: inline-block;
+  padding: 2px 12px;
+  margin: 0 4px;
+
+  border: 2px dashed var(--color1);
+  color: var(--color1);
+  font-weight: 600;
+}
+
+.box {
+  display: flex;
+  gap: 8px;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 12px;
+
+  border: 0;
+  outline: 0;
+  border-radius: 4px;
+  color: var(--color3);
+  font-size: 1.2rem;
+}
+
+.input::placeholder {
+  color: var(--color6);
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+.button {
+  padding: 8px 20px;
+  border: 0;
+  border-radius: 4px;
+  background-color: var(--color1);
+
+  color: var(--color5);
+  font-size: 1.2rem;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--color2);
+}

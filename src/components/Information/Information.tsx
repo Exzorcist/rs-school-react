@@ -24,6 +24,7 @@ function Information() {
             {docsLink.current}
           </a>
         </p>
+        <p className={styles.info}>The search works on a full match to a pokemon name</p>
       </div>
     </div>
   );
