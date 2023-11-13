@@ -1,11 +1,24 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import PokemonCurrent from './PokemonCurrent';
+import { useSearchContext } from '../../provider/SearchProvider.tsx';
 
 (global.fetch as jest.Mock) = jest.fn();
 
+const mockedUseSearchContext = useSearchContext as jest.Mock;
+
+jest.mock('../../provider/SearchProvider.tsx', () => ({
+  useSearchContext: jest.fn(),
+}));
+
 describe('{ PokemonCurrent } Component', () => {
   it('renders Pokemon information when a valid Pokemon name is provided', async () => {
+    mockedUseSearchContext.mockImplementation(() => ({
+      searchRequest: 'pikachu',
+      updateSearchRequest: jest.fn(),
+      showPokemon: jest.fn(),
+    }));
+
     global.fetch = jest.fn(() =>
       Promise.resolve({
         json: () =>
@@ -39,6 +52,12 @@ describe('{ PokemonCurrent } Component', () => {
 
   it('renders NotFound component when an invalid Pokemon name is provided', async () => {
     (global.fetch as jest.Mock).mockRejectedValue(new Error('Not Found'));
+
+    mockedUseSearchContext.mockImplementation(() => ({
+      searchRequest: 'pikachu',
+      updateSearchRequest: jest.fn(),
+      showPokemon: jest.fn(),
+    }));
 
     render(
       <MemoryRouter initialEntries={['/pokemon/invalidPokemon']}>

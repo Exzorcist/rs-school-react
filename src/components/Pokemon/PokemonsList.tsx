@@ -25,9 +25,7 @@ function PokemonsList() {
   const prevPageState = useRef<string | undefined>('');
   const prevLimitState = useRef<number>(currentLimit);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [searchRequest, setSearchRequest] = useState<string>(
-    localStorage.getItem('request') as string
-  );
+  const [searchRequest, setSearchRequest] = useState<string>(localStorage.getItem('request') || '');
   const [pokemonList, setPokemonList] = useState<PokemonInformation[] | []>([]);
 
   const showPokemon = () => {
