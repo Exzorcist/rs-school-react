@@ -10,12 +10,12 @@ export interface PokemonShortInformation {
 }
 
 export interface PokemonInformation {
-  id: number;
-  name: string;
-  image: string;
-  abilities: PokemonAbilities[];
-  stats: PokemonStats[];
-  types: PokemonType[];
+  id?: number;
+  name?: string;
+  image?: string;
+  abilities?: PokemonAbilities[];
+  stats?: PokemonStats[];
+  types?: PokemonType[];
   sprites?: {
     other?: {
       'official-artwork'?: {

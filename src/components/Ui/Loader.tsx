@@ -1,9 +1,10 @@
-import { usePokemonListContext } from '../../provider/PokemonListProvider.tsx';
+import { useSelector } from 'react-redux';
+import { selectLoader } from '../../redux/reducers/LoaderSlice.ts';
 import LoaderIcon from './LoaderIcon.tsx';
 import styles from './Loader.module.css';
 
 function Loader() {
-  const { isLoading } = usePokemonListContext();
+  const isLoading = useSelector(selectLoader);
 
   return (
     <div className={`${styles.loader} ${isLoading ? styles.show : ''}`}>

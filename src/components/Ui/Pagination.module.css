@@ -9,7 +9,8 @@
   gap: 4px;
 }
 
-.pager a {
+.pager button {
+  border: 0;
   background-color: var(--color1);
   color: var(--color5);
   font-size: 1.4rem;
@@ -18,7 +19,7 @@
   cursor: pointer;
 }
 
-.pager a:hover {
+.pager button:hover {
   background-color: var(--color2);
 }
 

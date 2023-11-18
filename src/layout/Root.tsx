@@ -1,39 +1,21 @@
 import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 
-import { RootProvider } from '../provider/RootProvider.tsx';
 import Information from '../components/Information/Information.tsx';
 import Pagination from '../components/Ui/Pagination.tsx';
+import Loader from '../components/Ui/Loader.tsx';
 import ErrorBoundaryButton from '../components/ErrorBoundary/ErrorBoundaryButton.tsx';
 
 import styles from './Root.module.css';
 
 function Root() {
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [currentLimit, setCurrentLimit] = useState<number>(10);
-  const [isFirstPage, setIsFirstPage] = useState<boolean>(true);
-  const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const [isPagerShow, setIsPagerShow] = useState<boolean>(false);
   const [isErrorBoundary, setIsErrorBoundary] = useState<boolean>(false);
 
   if (isErrorBoundary) {
     throw new Error('Test message to check ErrorBoundary operation');
   } else {
     return (
-      <RootProvider
-        value={{
-          currentPage,
-          currentLimit,
-          isFirstPage,
-          isLastPage,
-          isPagerShow,
-          setIsFirstPage,
-          setCurrentLimit,
-          setCurrentPage,
-          setIsLastPage,
-          setIsPagerShow,
-        }}
-      >
+      <>
         <div className={styles.main}>
           <Information />
 
@@ -55,11 +37,13 @@ function Root() {
           </section>
         </div>
 
+        <Loader />
+
         <ErrorBoundaryButton
           setIsErrorBoundary={setIsErrorBoundary}
           isErrorBoundary={isErrorBoundary}
         />
-      </RootProvider>
+      </>
     );
   }
 }

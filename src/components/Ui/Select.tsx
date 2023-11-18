@@ -1,11 +1,23 @@
 import { useState } from 'react';
-import { useRootContext } from '../../provider/RootProvider.tsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import {
+  selectCurrentLimit,
+  setCurrentLimit,
+  setCurrentPage,
+  setIsFirstPage,
+} from '../../redux/reducers/PaginationSlice.ts';
+
 import styles from './Select.module.css';
 
 function Select() {
-  const { currentLimit, setCurrentLimit } = useRootContext();
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const arrayOfOptions: number[] = [10, 15, 20];
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const currentLimit: number = useSelector(selectCurrentLimit);
 
   return (
     <div>
@@ -31,7 +43,10 @@ function Select() {
               key={option}
               className={`${currentLimit === option ? styles.active : ''} `}
               onClick={() => {
-                setCurrentLimit(option);
+                navigate(`/page/1`, { replace: true });
+                dispatch(setCurrentPage(1));
+                dispatch(setIsFirstPage(true));
+                dispatch(setCurrentLimit(option));
                 setShowDropdown(false);
               }}
               role="button"
