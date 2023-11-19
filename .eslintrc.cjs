@@ -21,7 +21,14 @@ module.exports = {
       env: {
         node: true,
       },
-      files: ['.eslintrc.{js,cjs}'],
+      files: ['.eslintrc.{js,cjs}', 'jest.config.{js,cjs}'],
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'plugin:jest/recommended',
+        'plugin:jest/style',
+        'plugin:jest-dom/recommended',
+      ],
+      plugins: ['@typescript-eslint', 'jest'],
       parserOptions: {
         sourceType: 'script',
       },
@@ -52,6 +59,16 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    'react/state-in-constructor': 'off',
+    'class-methods-use-this': 'off',
+    'import/extensions': [
+      'error',
+      'never',
+      {
+        ts: 'always',
+      },
+    ],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
-  ignorePatterns: ['vite.config.ts'],
+  ignorePatterns: ['vite.config.ts', 'jest.config.js'],
 };

@@ -1,0 +1,46 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pager {
+  display: flex;
+  gap: 4px;
+}
+
+.pager button {
+  border: 0;
+  background-color: var(--color1);
+  color: var(--color5);
+  font-size: 1.4rem;
+  text-decoration: none;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.pager button:hover {
+  background-color: var(--color2);
+}
+
+.pager span {
+  padding: 10px 16px;
+  background-color: var(--color3);
+  color: var(--color5);
+  font-size: 1.4rem;
+}
+
+.prev {
+  padding: 10px 16px 10px 20px;
+  border-radius: 12px 0 0 12px;
+}
+
+.next {
+  padding: 10px 20px 10px 16px;
+  border-radius: 0 12px 12px 0;
+}
+
+.hidden {
+  opacity: 0.5;
+  pointer-events: none;
+}
