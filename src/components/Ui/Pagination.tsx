@@ -9,7 +9,7 @@ import {
   selectIsPagerShow,
   setCurrentPage,
   setOffset,
-} from '../../redux/reducers/PaginationSlice.ts';
+} from '../../redux/reducers/PaginationSlice.tsx';
 
 import Select from './Select.tsx';
 import styles from './Pagination.module.css';

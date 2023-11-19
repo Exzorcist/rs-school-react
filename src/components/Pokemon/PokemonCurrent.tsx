@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import PokemonAPI from '../../redux/services/PokemonService.ts';
-import { setLoader } from '../../redux/reducers/LoaderSlice.ts';
-import { setRequest } from '../../redux/reducers/SearchSlice.ts';
+import PokemonAPI from '../../redux/services/PokemonService.tsx';
+import { setLoader } from '../../redux/reducers/LoaderSlice.tsx';
+import { setRequest } from '../../redux/reducers/SearchSlice.tsx';
 import clearImageUrl from '../../helper/clearImageUrl.tsx';
 
 import PokemonAbility from './Figure/PokemonAbility.tsx';

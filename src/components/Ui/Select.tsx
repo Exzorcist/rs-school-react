@@ -7,7 +7,7 @@ import {
   setCurrentLimit,
   setCurrentPage,
   setIsFirstPage,
-} from '../../redux/reducers/PaginationSlice.ts';
+} from '../../redux/reducers/PaginationSlice.tsx';
 
 import styles from './Select.module.css';
 

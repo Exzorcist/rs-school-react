@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import SearchReducer from './reducers/SearchSlice.ts';
-import ListReducer from './reducers/PokemonListSlice.ts';
-import PaginationReducer from './reducers/PaginationSlice.ts';
-import LoaderReducer from './reducers/LoaderSlice.ts';
-import PokemonAPI from './services/PokemonService.ts';
+import SearchReducer from './reducers/SearchSlice.tsx';
+import ListReducer from './reducers/PokemonListSlice.tsx';
+import PaginationReducer from './reducers/PaginationSlice.tsx';
+import LoaderReducer from './reducers/LoaderSlice.tsx';
+import PokemonAPI from './services/PokemonService.tsx';
 
 const store = configureStore({
   reducer: {

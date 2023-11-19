@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectLoader } from '../../redux/reducers/LoaderSlice.ts';
+import { selectLoader } from '../../redux/reducers/LoaderSlice.tsx';
 import LoaderIcon from './LoaderIcon.tsx';
 import styles from './Loader.module.css';
 

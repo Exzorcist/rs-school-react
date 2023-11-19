@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import PokemonAPI from '../../redux/services/PokemonService.ts';
-import { setLoader } from '../../redux/reducers/LoaderSlice.ts';
+import PokemonAPI from '../../redux/services/PokemonService.tsx';
+import { setLoader } from '../../redux/reducers/LoaderSlice.tsx';
 import {
   selectCurrentPage,
   selectOffset,
@@ -12,7 +12,7 @@ import {
   setOffset,
   setIsFirstPage,
   setIsLastPage,
-} from '../../redux/reducers/PaginationSlice.ts';
+} from '../../redux/reducers/PaginationSlice.tsx';
 
 import { PokemonList } from '../../interfaces/Pokemon.ts';
 import PokemonListData from './PokemonListData.tsx';

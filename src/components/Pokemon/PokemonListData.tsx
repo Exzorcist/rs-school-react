@@ -1,9 +1,9 @@
 import { useParams, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import PokemonAPI from '../../redux/services/PokemonService.ts';
-import { setList, selectList } from '../../redux/reducers/PokemonListSlice.ts';
-import { setRequest } from '../../redux/reducers/SearchSlice.ts';
+import PokemonAPI from '../../redux/services/PokemonService.tsx';
+import { setList, selectList } from '../../redux/reducers/PokemonListSlice.tsx';
+import { setRequest } from '../../redux/reducers/SearchSlice.tsx';
 import clearImageUrl from '../../helper/clearImageUrl.tsx';
 
 import styles from './PokemonListData.module.css';

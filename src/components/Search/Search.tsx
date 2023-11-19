@@ -2,8 +2,8 @@ import { FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { setRequest, selectRequset } from '../../redux/reducers/SearchSlice.ts';
-import { selectCurrentPage } from '../../redux/reducers/PaginationSlice.ts';
+import { setRequest, selectRequset } from '../../redux/reducers/SearchSlice.tsx';
+import { selectCurrentPage } from '../../redux/reducers/PaginationSlice.tsx';
 import styles from './Search.module.css';
 
 function Search() {
