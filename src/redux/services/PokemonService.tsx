@@ -6,9 +6,16 @@ interface RequestParam {
   limit: number;
 }
 
+const customFetchFn = async (input: RequestInfo, init?: RequestInit) => {
+  return window.fetch(input, init);
+};
+
 const PokemonAPI = createApi({
   reducerPath: 'pokemonAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://pokeapi.co/api/v2/pokemon' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://pokeapi.co/api/v2/pokemon',
+    fetchFn: customFetchFn,
+  }),
   endpoints: (build) => ({
     getPokemonList: build.query<PokemonList, RequestParam>({
       query: ({ offset, limit }) => `/?offset=${offset}&limit=${limit}`,
