@@ -1,14 +1,13 @@
-import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 
-import Information from '../components/Information/Information.tsx';
-import Pagination from '../components/Ui/Pagination.tsx';
-import Loader from '../components/Ui/Loader.tsx';
-import ErrorBoundaryButton from '../components/ErrorBoundary/ErrorBoundaryButton.tsx';
+import Information from './Information/Information.tsx';
+import Loader from './Ui/Loader.tsx';
+import Pagination from './Ui/Pagination.tsx';
+import ErrorBoundaryButton from './ErrorBoundary/ErrorBoundaryButton.tsx';
 
-import styles from './Root.module.css';
+import styles from '../styles/MainLayout.module.css';
 
-function Root() {
+function MainLayout({ children }: { children: React.ReactNode }) {
   const [isErrorBoundary, setIsErrorBoundary] = useState<boolean>(false);
 
   if (isErrorBoundary) {
@@ -25,9 +24,7 @@ function Root() {
           </div>
 
           <section className={styles.box}>
-            <div className={styles.screen}>
-              <Outlet />
-            </div>
+            <div className={styles.screen}>{children}</div>
 
             <div className={styles.panel}>
               <span />
@@ -48,4 +45,4 @@ function Root() {
   }
 }
 
-export default Root;
+export default MainLayout;
