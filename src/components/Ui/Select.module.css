@@ -39,18 +39,19 @@
   transform: translateY(12px);
 
   background-color: var(--color1);
-  color: var(--color5);
   font-size: 1.4rem;
   transition: 0.3s;
 }
 
-.options span {
+.options a {
   padding: 8px 38px;
+  color: var(--color5);
+  text-decoration: none;
   transition: 0.3s;
   cursor: pointer;
 }
 
-.options span:hover {
+.options a:hover {
   background-color: var(--color2);
 }
 

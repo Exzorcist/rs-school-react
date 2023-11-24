@@ -1,72 +1,29 @@
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
-
-// import {
-//   selectCurrentPage,
-//   selectCurrentLimit,
-//   selectIsFirstPage,
-//   selectIsLastPage,
-//   selectIsPagerShow,
-//   setCurrentPage,
-//   setOffset,
-// } from '../../redux/reducers/PaginationSlice.tsx';
+import Link from 'next/link';
 
 import Select from './Select.tsx';
 import styles from './Pagination.module.css';
 
-function Pagination() {
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+interface PaginationProps {
+  page: string;
+  next: string;
+  prev: string;
+  limit: string;
+}
 
-  // const currentPage: number = useSelector(selectCurrentPage);
-  // const currentLimit: number = useSelector(selectCurrentLimit);
-  // const isFirstPage: boolean = useSelector(selectIsFirstPage);
-  // const isLastPage: boolean = useSelector(selectIsLastPage);
-  // const isPagerShow: boolean = useSelector(selectIsPagerShow);
-
-  const currentPage: number = 1;
-  // const currentLimit: number = 10;
-  const isFirstPage: boolean = true;
-  const isLastPage: boolean = false;
-  const isPagerShow: boolean = true;
-
-  const showPage = (direction: string) => {
-    // console.log('click - ', direction);
-    return direction;
-  };
-  // const showPage = (direction: string) => {
-  //   dispatch(setCurrentPage(direction === 'next' ? +currentPage + 1 : currentPage - 1));
-  //   navigate(`/page/${direction === 'next' ? +currentPage + 1 : currentPage - 1}`, {
-  //     replace: true,
-  //   });
-
-  //   const offset: number = currentLimit * currentPage - currentLimit;
-  //   dispatch(setOffset(offset));
-  // };
-
+function Pagination({ page, next, prev, limit }: PaginationProps) {
   return (
     <div className={styles.pagination}>
-      {isPagerShow && (
-        <div className={styles.pager}>
-          <button
-            type="button"
-            className={`${styles.prev} ${isFirstPage ? styles.hidden : ''}`}
-            onClick={() => showPage('prev')}
-          >
-            prev
-          </button>
-          <span>{currentPage}</span>
-          <button
-            type="button"
-            className={`${styles.next} ${isLastPage ? styles.hidden : ''}`}
-            onClick={() => showPage('next')}
-          >
-            next
-          </button>
-        </div>
-      )}
+      <div className={styles.pager}>
+        <Link href={prev} className={`${styles.prev} ${!prev ? styles.hidden : ''}`}>
+          prev
+        </Link>
+        <span>{page}</span>
+        <Link href={next} className={`${styles.next} ${!next ? styles.hidden : ''}`}>
+          next
+        </Link>
+      </div>
 
-      <Select />
+      <Select limit={limit} />
     </div>
   );
 }

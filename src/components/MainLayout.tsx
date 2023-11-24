@@ -1,8 +1,6 @@
 import { useState } from 'react';
 
 import Information from './Information/Information.tsx';
-import Loader from './Ui/Loader.tsx';
-import Pagination from './Ui/Pagination.tsx';
 import ErrorBoundaryButton from './ErrorBoundary/ErrorBoundaryButton.tsx';
 
 import styles from '../styles/MainLayout.module.css';
@@ -17,24 +15,8 @@ function MainLayout({ children }: { children: React.ReactNode }) {
       <>
         <div className={styles.main}>
           <Information />
-
-          <div className={styles.wrapper}>
-            <h2 className={styles.title}>Click to pokemon to see details.</h2>
-            <Pagination />
-          </div>
-
-          <section className={styles.box}>
-            <div className={styles.screen}>{children}</div>
-
-            <div className={styles.panel}>
-              <span />
-              <span />
-              <span />
-            </div>
-          </section>
+          {children}
         </div>
-
-        <Loader />
 
         <ErrorBoundaryButton
           setIsErrorBoundary={setIsErrorBoundary}

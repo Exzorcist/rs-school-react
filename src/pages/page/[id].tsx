@@ -1,70 +1,87 @@
 import fetch from 'isomorphic-unfetch';
-import Link from 'next/link';
 
 import RootLayout from '../../components/RootLayout.tsx';
 import MainLayout from '../../components/MainLayout.tsx';
+import PokemonList from '../../components/Pokemon/PokemonList.tsx';
+import Pagination from '../../components/Ui/Pagination.tsx';
+import Loader from '../../components/Ui/Loader.tsx';
+
 import Search from '../../components/Search/Search.tsx';
 
 import { PokemonInformation, PokemonShortInformation } from '../../interfaces/Pokemon.ts';
-import clearImageUrl from '../../helper/clearImageUrl.tsx';
-import styles from '../../styles/PokemonsList.module.css';
+import styles from '../../styles/MainPage.module.css';
 
 interface IRequestParams {
   params: {
     id: string;
   };
+  query: {
+    limit: string;
+  };
 }
 
-interface IPokemonListParams {
-  list: PokemonInformation[];
-  page: number;
+interface IMainPageProps {
+  data: {
+    limit: string;
+    page: string;
+    offset: number;
+    prev: string;
+    next: string;
+    list: PokemonInformation[];
+  };
 }
 
-function PokemonList({ list, page }: IPokemonListParams) {
+function MainPage({ data }: IMainPageProps) {
   return (
     <RootLayout>
       <MainLayout>
         <>
-          <Search />
-
           <div className={styles.wrapper}>
-            <div className={styles.list}>
-              {list &&
-                list.map((item: PokemonInformation) => (
-                  <Link
-                    key={item.name}
-                    className={styles.pokemon}
-                    href={`${page}/pokemon/${item.name}`}
-                    onClick={() => {
-                      // TODO: logic to display name on the search
-                      localStorage.setItem('request', item.name as string);
-                    }}
-                  >
-                    <img src={clearImageUrl(item.image)} width="150" height="150" alt={item.name} />
-                    <h4 className={styles.title}>{item.name}</h4>
-                  </Link>
-                ))}
-            </div>
+            <h2 className={styles.title}>Click to pokemon to see details.</h2>
+            <Pagination page={data.page} next={data.next} prev={data.prev} limit={data.limit} />
           </div>
+
+          <section className={styles.box}>
+            <div className={styles.screen}>
+              <Search />
+              <PokemonList list={data.list} page={data.page} limit={data.limit} />
+            </div>
+
+            <div className={styles.panel}>
+              <span />
+              <span />
+              <span />
+            </div>
+          </section>
+
+          <Loader />
         </>
       </MainLayout>
     </RootLayout>
   );
 }
 
-export default PokemonList;
+export default MainPage;
 
-export async function getServerSideProps({ params }: IRequestParams) {
-  const page = params.id;
-  const offset = 0;
-  const limit = 10;
+export async function getServerSideProps({ params, query }: IRequestParams) {
+  const data = {
+    limit: query.limit,
+    page: params.id,
+    offset: +query.limit * +params.id - +query.limit,
+    prev: '',
+    next: '',
+    list: [] as PokemonInformation[],
+  };
 
   try {
-    const list: PokemonInformation[] = [];
     const response = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`
+      `https://pokeapi.co/api/v2/pokemon/?offset=${data.offset}&limit=${data.limit}`
     );
     const json = await response.json();
+
+    // Calculate values for pagination & select
+    data.prev = json.previous ? `/page/${+data.page - 1}?limit=${data.limit}` : '';
+    data.next = json.next ? `/page/${+data.page + 1}?limit=${data.limit}` : '';
 
     await Promise.all(
       json.results.map((item: PokemonShortInformation) =>
@@ -72,7 +89,7 @@ export async function getServerSideProps({ params }: IRequestParams) {
       )
     ).then((results) => {
       results.forEach((pokemon: PokemonInformation) => {
-        list.push({
+        data.list.push({
           id: pokemon.id,
           name: pokemon.name,
           abilities: pokemon.abilities,
@@ -84,11 +101,11 @@ export async function getServerSideProps({ params }: IRequestParams) {
     });
 
     return {
-      props: { list, page },
+      props: { data },
     };
   } catch (error) {
     return {
-      props: { list: null, page },
+      props: { data: null },
     };
   }
 }
