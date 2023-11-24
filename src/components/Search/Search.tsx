@@ -1,27 +1,29 @@
 import { FormEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
 
-import { setRequest, selectRequset } from '../../redux/reducers/SearchSlice.tsx';
-import { selectCurrentPage } from '../../redux/reducers/PaginationSlice.tsx';
+// import { setRequest, selectRequset } from '../../redux/reducers/SearchSlice.tsx';
+// import { selectCurrentPage } from '../../redux/reducers/PaginationSlice.tsx';
 import styles from './Search.module.css';
 
 function Search() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const searchRequest = useSelector(selectRequset);
-  const currentPage = useSelector(selectCurrentPage);
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const searchRequest = useSelector(selectRequset);
+  // const currentPage = useSelector(selectCurrentPage);
+  const searchRequest = '';
 
-  const inputChange = (e: FormEvent<HTMLInputElement>): void => {
+  const inputChange = (e: FormEvent<HTMLInputElement>): string => {
     const request = (e.target as HTMLInputElement).value.trim().toLocaleLowerCase();
-    dispatch(setRequest(request));
+    // dispatch(setRequest(request));
 
-    if (!request) navigate(`/page/${currentPage}`, { replace: true });
-    localStorage.setItem('request', request);
+    // if (!request) navigate(`/page/${currentPage}`, { replace: true });
+    // localStorage.setItem('request', request);
+    return request;
   };
 
   const showDetails = () => {
-    navigate(`/page/${currentPage}/pokemon/${searchRequest}`, { replace: true });
+    // navigate(`/page/${currentPage}/pokemon/${searchRequest}`, { replace: true });
   };
 
   return (
