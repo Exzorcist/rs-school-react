@@ -1,13 +1,10 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
+import { ISelectProps } from '../../interfaces/Props.ts';
 import styles from './Select.module.css';
 
-interface SelectProps {
-  limit: string;
-}
-
-function Select({ limit }: SelectProps) {
+function Select({ limit, setIsLoading }: ISelectProps) {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const arrayOfOptions: number[] = [10, 15, 20];
 
@@ -34,7 +31,10 @@ function Select({ limit }: SelectProps) {
               key={option}
               href={`/page/1?limit=${option}`}
               className={`${+limit === option ? styles.active : ''} `}
-              onClick={() => setShowDropdown(false)}
+              onClick={() => {
+                setShowDropdown(false);
+                setIsLoading(true);
+              }}
             >
               {option}
             </Link>

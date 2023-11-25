@@ -1,35 +1,31 @@
-import { FormEvent } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
-
-// import { setRequest, selectRequset } from '../../redux/reducers/SearchSlice.tsx';
-// import { selectCurrentPage } from '../../redux/reducers/PaginationSlice.tsx';
+import { useState, useEffect, FormEvent } from 'react';
+import { useRouter } from 'next/router';
+import { ISearchProps } from '../../interfaces/Props.ts';
 import styles from './Search.module.css';
 
-function Search() {
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  // const searchRequest = useSelector(selectRequset);
-  // const currentPage = useSelector(selectCurrentPage);
-  const searchRequest = '';
+function Search({ request, page, limit }: ISearchProps) {
+  const router = useRouter();
+  const [input, setInput] = useState<string>(request);
 
-  const inputChange = (e: FormEvent<HTMLInputElement>): string => {
-    const request = (e.target as HTMLInputElement).value.trim().toLocaleLowerCase();
-    // dispatch(setRequest(request));
+  useEffect(() => {
+    setInput(request);
+  }, [request]);
 
-    // if (!request) navigate(`/page/${currentPage}`, { replace: true });
-    // localStorage.setItem('request', request);
-    return request;
+  const inputChange = (e: FormEvent<HTMLInputElement>): void => {
+    const data = (e.target as HTMLInputElement).value.trim().toLocaleLowerCase();
+    setInput(data);
+    if (!data) router.push(`/page/${page}?limit=${limit}`);
+    localStorage.setItem('request', data);
   };
 
   const showDetails = () => {
-    // navigate(`/page/${currentPage}/pokemon/${searchRequest}`, { replace: true });
+    router.push(`/page/${page}?limit=${limit}&pokemon=${input}`);
   };
 
   return (
     <div className={styles.search}>
       <h3 className={styles.title}>
-        Use pokemon <span>Name</span> or <span>ID</span> for search
+        Use pokemon <span>Name</span> for search
       </h3>
 
       <div className={styles.box}>
@@ -37,7 +33,7 @@ function Search() {
           type="search"
           className={styles.input}
           placeholder="For example: charmeleon or 142"
-          value={searchRequest}
+          value={input}
           onInput={(e: FormEvent<HTMLInputElement>) => inputChange(e)}
         />
 

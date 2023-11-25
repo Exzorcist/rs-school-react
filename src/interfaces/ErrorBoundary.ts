@@ -1,7 +1,5 @@
-import { ReactNode } from 'react';
-
 export interface ErrorBoundaryProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export interface ErrorBoundaryState {

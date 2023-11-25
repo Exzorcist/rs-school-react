@@ -1,9 +1,3 @@
-export interface PokemonList {
-  previous: string | null;
-  next: string | null;
-  results: PokemonShortInformation[];
-}
-
 export interface PokemonShortInformation {
   name: string;
   url: string;

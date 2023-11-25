@@ -1,11 +1,10 @@
-// import { useSelector } from 'react-redux';
-// import { selectLoader } from '../../redux/reducers/LoaderSlice.tsx';
 import LoaderIcon from './LoaderIcon.tsx';
+import { ILoaderProps } from '../../interfaces/Props.ts';
 import styles from './Loader.module.css';
 
-function Loader() {
-  // const isLoading = useSelector(selectLoader);
-  const isLoading = false;
+function Loader({ isLoading, setIsLoading }: ILoaderProps) {
+  const delay: number = 1000;
+  setTimeout((): void => setIsLoading(false), delay);
 
   return (
     <div className={`${styles.loader} ${isLoading ? styles.show : ''}`}>

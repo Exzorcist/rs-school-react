@@ -1,63 +1,45 @@
-// import { useEffect } from 'react';
-// import { useParams, NavLink } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
+import Link from 'next/link';
 
-// import PokemonAPI from '../../redux/services/PokemonService.tsx';
-// import { setLoader } from '../../redux/reducers/LoaderSlice.tsx';
-// import { setRequest } from '../../redux/reducers/SearchSlice.tsx';
-// import clearImageUrl from '../../helper/clearImageUrl.tsx';
+import PokemonAbility from './Figure/PokemonAbility.tsx';
+import PokemonType from './Figure/PokemonType.tsx';
+import PokemonStats from './Figure/PokemonStats.tsx';
+import NotFound from '../NotFound/NotFound.tsx';
 
-// import PokemonAbility from './Figure/PokemonAbility.tsx';
-// import PokemonType from './Figure/PokemonType.tsx';
-// import PokemonStats from './Figure/PokemonStats.tsx';
-// import NotFound from '../NotFound/NotFound.tsx';
+import { IPokemonCurrentProps } from '../../interfaces/Props.ts';
+import styles from './PokemonCurrent.module.css';
 
-// import styles from './PokemonCurrent.module.css';
+function PokemonCurrent({ pokemon, page, limit }: IPokemonCurrentProps) {
+  return (
+    <div className={styles.wrapper}>
+      {pokemon.id && (
+        <>
+          <img
+            className={styles.image}
+            src={pokemon.image}
+            width="300"
+            height="300"
+            alt={pokemon.name}
+          />
+          <div>
+            <h4 className={styles.title}>{pokemon.name}</h4>
+            <PokemonType types={pokemon.types} />
+            <PokemonAbility abilities={pokemon.abilities} />
+            <PokemonStats stats={pokemon.stats} />
+          </div>
+        </>
+      )}
 
-// function PokemonCurrent() {
-//   const dispatch = useDispatch();
+      {!pokemon.id && <NotFound />}
 
-//   const { page, name } = useParams();
-//   const { data, isSuccess } = PokemonAPI.useGetPokemonDataQuery(name);
+      <Link
+        href={`/page/${page}?limit=${limit}`}
+        className={styles.close}
+        onClick={() => localStorage.setItem('request', '')}
+      >
+        +
+      </Link>
+    </div>
+  );
+}
 
-//   useEffect(() => {
-//     dispatch(setLoader(true));
-//   }, [dispatch]);
-
-//   return (
-//     <div className={styles.wrapper}>
-//       {isSuccess && (
-//         <>
-//           <img
-//             className={styles.image}
-//             src={clearImageUrl(data.sprites?.other?.['official-artwork']?.front_default)}
-//             width="300"
-//             height="300"
-//             alt={data.name}
-//           />
-//           <div>
-//             <h4 className={styles.title}>{data.name}</h4>
-//             <PokemonType types={data.types} />
-//             <PokemonAbility abilities={data.abilities} />
-//             <PokemonStats stats={data.stats} />
-//           </div>
-//         </>
-//       )}
-
-//       {!isSuccess && <NotFound />}
-
-//       <NavLink
-//         className={styles.close}
-//         to={`/page/${page && +page}`}
-//         onClick={() => {
-//           dispatch(setRequest(''));
-//           localStorage.setItem('request', '');
-//         }}
-//       >
-//         +
-//       </NavLink>
-//     </div>
-//   );
-// }
-
-// export default PokemonCurrent;
+export default PokemonCurrent;

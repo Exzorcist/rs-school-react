@@ -12,16 +12,11 @@ const nextConfig = {
         destination: '/page/1?limit=10',
         permanent: false,
       },
-      // {
-      //   source: '/page',
-      //   destination: '/page/1?limit=10',
-      //   permanent: false,
-      // },
-      // {
-      //   source: '/page/1',
-      //   destination: '/page/1?limit=10',
-      //   permanent: false,
-      // },
+      {
+        source: '/page',
+        destination: '/page/1?limit=10',
+        permanent: false,
+      },
     ];
   },
 };

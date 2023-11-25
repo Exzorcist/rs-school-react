@@ -1,0 +1,26 @@
+.box {
+  display: grid;
+  gap: 24px;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 24px;
+}
+
+.button {
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--color1);
+
+  color: var(--color5);
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--color2);
+}
