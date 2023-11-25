@@ -9,10 +9,11 @@ function Select({ limit, setIsLoading }: ISelectProps) {
   const arrayOfOptions: number[] = [10, 15, 20];
 
   return (
-    <div>
+    <div data-testid="select">
       <div className={styles.select}>
         <div
           className={styles.placeholder}
+          data-testid="placeholder"
           onClick={() => setShowDropdown(!showDropdown)}
           role="button"
           aria-hidden="true"
@@ -24,11 +25,12 @@ function Select({ limit, setIsLoading }: ISelectProps) {
 
         <div
           className={`${styles.options} ${showDropdown ? styles.show : ''} `}
-          data-testid="select-content"
+          data-testid="options"
         >
           {arrayOfOptions.map((option) => (
             <Link
               key={option}
+              data-testid={`option${option}`}
               href={`/page/1?limit=${option}`}
               className={`${+limit === option ? styles.active : ''} `}
               onClick={() => {

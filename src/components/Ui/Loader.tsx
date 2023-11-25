@@ -7,7 +7,7 @@ function Loader({ isLoading, setIsLoading }: ILoaderProps) {
   setTimeout((): void => setIsLoading(false), delay);
 
   return (
-    <div className={`${styles.loader} ${isLoading ? styles.show : ''}`}>
+    <div className={`${styles.loader} ${isLoading ? styles.show : ''}`} data-testid="loader">
       <LoaderIcon />
       <h5 className={styles.title}>Loading. Please wait ...</h5>
     </div>
