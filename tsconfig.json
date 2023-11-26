@@ -24,7 +24,7 @@
     "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "types": [
       "jest",
       "node"
@@ -42,8 +42,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "./dist/types/**/*.ts",
-    "tests/[id].test.tsx",
-    "tests/404.test.tsx"
+    "tests/[id].test.tsx", 
+    "tests/404.test.tsx"  
   ],
   "exclude": [
     "./node_modules"
