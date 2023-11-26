@@ -23,7 +23,7 @@ function Search({ request, page, limit }: ISearchProps) {
   };
 
   return (
-    <div className={styles.search}>
+    <div className={styles.search} data-testid="search">
       <h3 className={styles.title}>
         Use pokemon <span>Name</span> for search
       </h3>
@@ -37,7 +37,12 @@ function Search({ request, page, limit }: ISearchProps) {
           onInput={(e: FormEvent<HTMLInputElement>) => inputChange(e)}
         />
 
-        <button type="button" className={styles.button} onClick={() => showDetails()}>
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => showDetails()}
+          data-testid="search-click"
+        >
           Search
         </button>
       </div>

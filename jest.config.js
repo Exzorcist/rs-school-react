@@ -5,6 +5,7 @@ const config = {
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
     '<rootDir>/src/**/*.tsx',
+    '!<rootDir>/src/pages/_app.tsx',
   ],
   moduleNameMapper: {
     '\\.css$': 'identity-obj-proxy',

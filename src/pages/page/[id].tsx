@@ -12,7 +12,7 @@ import { IMainPageProps } from '../../interfaces/Props.ts';
 import clearImageUrl from '../../helper/clearImageUrl.tsx';
 import styles from '../../styles/MainPage.module.css';
 
-interface IRequestQuery {
+export interface IRequestQuery {
   query: {
     id: string;
     limit: string;

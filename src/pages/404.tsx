@@ -7,11 +7,11 @@ export default function Custom404() {
   return (
     <RootLayout>
       <MainLayout>
-        <div className={styles.box}>
+        <div className={styles.box} data-testid="404">
           <h1 className={styles.title}>404 - Page Not Found</h1>
           <div>The page you&lsquo;re looking for might have been moved or doesn&lsquo;t exist.</div>
           <div>
-            <Link className={styles.button} href="/">
+            <Link className={styles.button} href="/" data-testid="to-home">
               Back to home page
             </Link>
           </div>

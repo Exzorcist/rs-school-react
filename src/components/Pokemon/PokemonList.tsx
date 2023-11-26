@@ -5,7 +5,7 @@ import styles from './PokemonsList.module.css';
 
 function PokemonsList({ list, page, limit, children }: IPokemonsListProps) {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-testid="list">
       <div className={styles.list}>
         {list &&
           list.map((item: PokemonInformation) => (

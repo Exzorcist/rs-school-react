@@ -10,7 +10,7 @@ import styles from './PokemonCurrent.module.css';
 
 function PokemonCurrent({ pokemon, page, limit }: IPokemonCurrentProps) {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-testid="pokemon">
       {pokemon.id && (
         <>
           <img
@@ -34,6 +34,7 @@ function PokemonCurrent({ pokemon, page, limit }: IPokemonCurrentProps) {
       <Link
         href={`/page/${page}?limit=${limit}`}
         className={styles.close}
+        data-testid="close"
         onClick={() => localStorage.setItem('request', '')}
       >
         +
