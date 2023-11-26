@@ -24,7 +24,7 @@
     "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "types": [
       "jest",
       "node"
@@ -41,7 +41,9 @@
     "next.config.js",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "./dist/types/**/*.ts"
+    "./dist/types/**/*.ts",
+    "tests/[id].test.tsx",
+    "tests/404.test.tsx"
   ],
   "exclude": [
     "./node_modules"

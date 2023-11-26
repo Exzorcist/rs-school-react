@@ -3,8 +3,8 @@ import '@testing-library/jest-dom';
 import { act } from 'react-dom/test-utils';
 import fetchMock from 'jest-fetch-mock';
 import { useRouter } from 'next/router';
-import MainPage, { getServerSideProps, IRequestQuery } from './[id].tsx';
-import { IMainPageProps } from '../../interfaces/Props.ts';
+import MainPage, { getServerSideProps, IRequestQuery } from '../src/pages/page/[id].tsx';
+import { IMainPageProps } from '../src/interfaces/Props.js';
 
 jest.mock('isomorphic-unfetch', () => fetchMock);
 jest.mock('next/router', () => ({
