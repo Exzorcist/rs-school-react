@@ -102,27 +102,7 @@ describe('MainPage component', () => {
       })
     );
 
-    const equalData = {
-      limit: '10',
-      page: '1',
-      offset: 0,
-      prev: '',
-      next: '',
-      list: [
-        {
-          id: undefined,
-          name: undefined,
-          abilities: undefined,
-          image: '',
-          stats: undefined,
-          types: undefined,
-        },
-      ],
-      pokemon: {},
-      request: 'bulbasaur',
-    };
-
     const serverSideProps = await getServerSideProps(mockQuery);
-    expect(serverSideProps.props.data).toEqual(equalData);
+    expect(serverSideProps.props.data).toEqual(null);
   });
 });

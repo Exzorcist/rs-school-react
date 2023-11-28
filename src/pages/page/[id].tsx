@@ -110,6 +110,24 @@ export async function getServerSideProps({ query }: IRequestQuery) {
       data.list.push(info);
     });
 
+    if (query.pokemon && !data.pokemon.name) {
+      const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${query.pokemon}`);
+      const pokemonJson = await pokemonResponse.json();
+
+      const pokemonInfo: PokemonInformation = {
+        id: pokemonJson.id,
+        name: pokemonJson.name,
+        abilities: pokemonJson.abilities,
+        image: clearImageUrl(
+          pokemonJson.sprites?.other?.['official-artwork']?.front_default as string
+        ),
+        stats: pokemonJson.stats,
+        types: pokemonJson.types,
+      };
+
+      data.pokemon = pokemonInfo;
+    }
+
     return {
       props: { data },
     };
