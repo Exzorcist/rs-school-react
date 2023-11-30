@@ -33,13 +33,8 @@ function UncontrolledForm() {
           <SelectCountry />
         </div>
 
-        <div>
-          <InputTerms />
-        </div>
-
-        <div>
-          <SelectImage />
-        </div>
+        <InputTerms />
+        <SelectImage />
       </form>
     </div>
   );
