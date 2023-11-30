@@ -8,19 +8,18 @@ function Root() {
         <NavLink
           to="/uncontrolled-form"
           className={({ isActive }) =>
-            `border border-green-900 py-2 px-5 rounded-2xl transition-colors duration-300 hover:text-white hover:bg-green-900 ${
-              isActive ? 'bg-green-900 text-white' : ''
-            }`
+            `border border-green-900 py-2 px-5 rounded-2xl transition-colors duration-300 
+           hover:text-white hover:bg-green-900 ${isActive ? 'bg-green-900 text-white' : ''}`
           }
         >
           Uncontrolled Form
         </NavLink>
+
         <NavLink
           to="/hook-form"
           className={({ isActive }) =>
-            `border border-green-900 py-2 px-5 rounded-2xl transition-colors duration-300 hover:text-white hover:bg-green-900 ${
-              isActive ? 'bg-green-900 text-white' : ''
-            }`
+            `border border-green-900 py-2 px-5 rounded-2xl transition-colors duration-300 
+            hover:text-white hover:bg-green-900 ${isActive ? 'bg-green-900 text-white' : ''}`
           }
         >
           React Hook Form

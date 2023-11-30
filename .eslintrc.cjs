@@ -61,11 +61,13 @@ module.exports = {
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'react/state-in-constructor': 'off',
     'class-methods-use-this': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
     'import/extensions': [
       'error',
       'never',
       {
         ts: 'always',
+        json: 'always',
       },
     ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
