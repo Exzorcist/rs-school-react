@@ -1,6 +1,6 @@
 function InputTerms() {
   return (
-    <>
+    <div>
       <input
         className="fixed opacity-0 w-0 h-0 [&+label]:after:checked:opacity-100"
         type="checkbox"
@@ -15,7 +15,7 @@ function InputTerms() {
       >
         Accept the Terms & Conditions
       </label>
-    </>
+    </div>
   );
 }
 
