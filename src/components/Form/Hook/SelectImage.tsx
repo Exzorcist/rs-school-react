@@ -31,9 +31,8 @@ function SelectImage() {
 
       <label
         htmlFor="image"
-        className="flex justify-center max-w-xs mx-auto mt-7 border border-blue-400 py-1.5 px-7 text-center rounded 
-                 cursor-pointer transition-colors duration-300 
-                 hover:bg-blue-400 hover:text-white hover:border-blue-300"
+        className="flex justify-center max-w-xs mx-auto border border-blue-400 py-1.5 px-5 text-center rounded-lg 
+                 cursor-pointer transition-colors duration-300 bg-blue-400 text-white hover:bg-blue-500"
       >
         Select Image
       </label>
