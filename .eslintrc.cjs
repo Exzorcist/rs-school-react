@@ -2,7 +2,6 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    jest: true,
     node: true,
   },
   extends: [
@@ -21,14 +20,11 @@ module.exports = {
       env: {
         node: true,
       },
-      files: ['.eslintrc.{js,cjs}', 'jest.config.{js,cjs}'],
+      files: ['.eslintrc.{js,cjs}'],
       extends: [
         'plugin:@typescript-eslint/recommended',
-        'plugin:jest/recommended',
-        'plugin:jest/style',
-        'plugin:jest-dom/recommended',
       ],
-      plugins: ['@typescript-eslint', 'jest'],
+      plugins: ['@typescript-eslint'],
       parserOptions: {
         sourceType: 'script',
       },
@@ -72,5 +68,5 @@ module.exports = {
     ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
-  ignorePatterns: ['vite.config.ts', 'jest.config.js'],
+  ignorePatterns: ['vite.config.ts'],
 };

@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import Countries from '../../../json/countries.json';
+import { useSelector } from 'react-redux';
+import { selectCountry } from '../../../redux/reducers/CountrySlice.tsx';
 
 function SelectCountry() {
   const [isShow, setIsShow] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
+  const country = useSelector(selectCountry);
 
-  const filteredCountries = Countries.filter((item) =>
+  const filteredCountries = country.filter((item) =>
     item.name.toLowerCase().includes(input.toLowerCase())
   );
 

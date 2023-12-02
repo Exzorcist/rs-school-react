@@ -8,6 +8,6 @@ const CountrySlice = createSlice({
   reducers: {},
 });
 
-export const selectHookFrom = (state: { country: ICountryData[] }) => state.country;
+export const selectCountry = (state: { country: ICountryData[] }) => state.country;
 
 export default CountrySlice.reducer;
