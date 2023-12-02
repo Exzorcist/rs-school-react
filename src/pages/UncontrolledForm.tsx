@@ -1,7 +1,10 @@
-import { FormEvent } from 'react';
+import { useState, FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
+
 import { setFormList } from '../redux/reducers/FormUncontrolledSlice.tsx';
+import formSchema from '../utils/schemas/FormSchema.tsx';
 
 import InputName from '../components/Form/Uncontrolled/InputName.tsx';
 import InputAge from '../components/Form/Uncontrolled/InputAge.tsx';
@@ -18,8 +21,9 @@ import SubmitButton from '../components/Form/Uncontrolled/SubmitButton.tsx';
 function UncontrolledForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [validationErrors, setValidationErrors] = useState<Record<string, string | undefined>>({});
 
-  const formSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const formSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
@@ -29,38 +33,61 @@ function UncontrolledForm() {
       value[key] = val.toString();
     });
 
-    dispatch(setFormList(value));
-    navigate('/', { replace: true });
+    try {
+      await formSchema.validate(value);
+
+      dispatch(setFormList(value));
+      navigate('/', { replace: true });
+    } catch (error) {
+      if (error instanceof yup.ValidationError) {
+        const errors: Record<string, string | undefined> = {};
+
+        if (error.inner.length === 0) {
+          errors[error.path as string] = error.message;
+        } else {
+          error.inner.forEach((e) => {
+            const inputName = e.path as string;
+            errors[inputName] = e.message;
+          });
+        }
+
+        setValidationErrors(errors);
+      }
+    }
+  };
+
+  const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValidationErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: undefined }));
   };
 
   return (
     <div className="mt-24 max-w-xl mx-auto">
-      <form className="w-full grid gap-5" onSubmit={formSubmit}>
-        <div className="flex justify-between items-center gap-5">
+      <form className="w-full grid gap-8" onSubmit={formSubmit}>
+        <div className="flex justify-between items-center gap-8">
           <div className="flex justify-center">
-            <InputMan />
-            <InputWoman />
+            <InputMan onChange={inputChange} error={validationErrors.gender} />
+            <InputWoman onChange={inputChange} error={validationErrors.gender} />
           </div>
 
-          <SelectImage />
+          <SelectImage onChange={inputChange} error={validationErrors.image64} />
         </div>
 
-        <div className="grid gap-5 grid-cols-[2fr_1fr]">
-          <InputName />
-          <InputAge />
+        <div className="grid gap-8 grid-cols-[2fr_1fr]">
+          <InputName onChange={inputChange} error={validationErrors.name} />
+          <InputAge onChange={inputChange} error={validationErrors.age} />
         </div>
 
-        <div className="grid gap-5 grid-cols-2">
-          <InputEmail />
-          <InputPassword />
+        <div className="grid gap-8 grid-cols-2">
+          <InputEmail onChange={inputChange} error={validationErrors.email} />
+          <InputPassword onChange={inputChange} error={validationErrors.password} />
         </div>
 
-        <div className="grid gap-5 grid-cols-[1fr_2fr]">
-          <InputPasswordConfirm />
-          <SelectCountry />
+        <div className="grid gap-8 grid-cols-[1fr_2fr]">
+          <InputPasswordConfirm onChange={inputChange} error={validationErrors.confirmPassword} />
+          <SelectCountry onChange={inputChange} error={validationErrors.country} />
         </div>
 
-        <InputTerms />
+        <InputTerms onChange={inputChange} error={validationErrors.terms} />
         <SubmitButton />
       </form>
     </div>

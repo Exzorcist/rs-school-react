@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCountry } from '../../../redux/reducers/CountrySlice.tsx';
+import { IFormInputValidation } from '../../../interfaces/FormData.ts';
 
-function SelectCountry() {
+function SelectCountry({ onChange, error }: IFormInputValidation) {
   const [isShow, setIsShow] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
   const country = useSelector(selectCountry);
@@ -22,13 +23,18 @@ function SelectCountry() {
                  after:transition-transform after:duration-300 ${isShow ? 'after:rotate-0' : ''}`}
     >
       <input
-        className="w-full py-1.5 pl-4 pr-9 transition-colors duration-300 border-2 border-blue-200 
-                   rounded-lg outline-0 focus:border-blue-300"
+        className={`w-full py-1.5 px-4 transition-colors duration-300 border-2 border-blue-200 
+                    rounded-lg outline-0 focus:border-blue-300 ${
+                      error ? 'border-red-500 focus:border-red-500' : ''
+                    }`}
         name="country"
         autoComplete="off"
         placeholder="Country"
         onClick={() => setIsShow(!isShow)}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => {
+          setInput(e.target.value);
+          onChange(e);
+        }}
         value={input}
       />
       <div
@@ -44,12 +50,25 @@ function SelectCountry() {
             aria-hidden
             key={item.code}
             className="py-2 px-3.5 even:bg-blue-50 cursor-pointer transition-colors duration-300 hover:bg-blue-100"
-            onClick={() => setInput(item.name)}
+            onClick={() => {
+              setInput(item.name);
+              onChange({
+                target: {
+                  name: 'country',
+                  value: item.name,
+                  type: 'text',
+                },
+              } as React.ChangeEvent<HTMLInputElement>);
+            }}
           >
             {item.name}
           </span>
         ))}
       </div>
+
+      {error && (
+        <p className="absolute top-12 left-4 text-sm text-red-500 whitespace-nowrap">{error}</p>
+      )}
     </div>
   );
 }
