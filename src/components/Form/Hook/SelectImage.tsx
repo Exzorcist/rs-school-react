@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 function SelectImage() {
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<string>('');
 
   const getImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileInput = event.target;
@@ -20,14 +20,8 @@ function SelectImage() {
 
   return (
     <div>
-      <input
-        type="file"
-        name="image"
-        id="image"
-        onChange={getImage}
-        accept="image/*"
-        className="hidden"
-      />
+      <input type="hidden" name="image64" value={image} />
+      <input type="file" id="image" onChange={getImage} accept="image/*" className="hidden" />
 
       <label
         htmlFor="image"
@@ -36,14 +30,6 @@ function SelectImage() {
       >
         Select Image
       </label>
-
-      {image && (
-        <div>
-          <h3>Selected Image:</h3>
-          <img src={image} alt="Selected" style={{ maxWidth: '100%', maxHeight: '300px' }} />
-          <p>Base64 Data: {image}</p>
-        </div>
-      )}
     </div>
   );
 }

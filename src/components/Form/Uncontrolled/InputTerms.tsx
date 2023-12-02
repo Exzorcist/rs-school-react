@@ -4,7 +4,7 @@ function InputTerms() {
       <input
         className="fixed opacity-0 w-0 h-0 [&+label]:after:checked:opacity-100"
         type="checkbox"
-        name="accept-terms"
+        name="terms"
         id="accept-terms"
       />
       <label

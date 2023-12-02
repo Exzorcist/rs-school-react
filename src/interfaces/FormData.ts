@@ -6,5 +6,5 @@ export interface IFormData {
   country: string;
   gender: string;
   terms: boolean;
-  image: string;
+  image64: string;
 }

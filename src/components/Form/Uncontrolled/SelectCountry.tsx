@@ -25,6 +25,7 @@ function SelectCountry() {
         className="w-full py-1.5 pl-4 pr-9 transition-colors duration-300 border-2 border-blue-200 
                    rounded-lg outline-0 focus:border-blue-300"
         name="country"
+        autoComplete="off"
         placeholder="Country"
         onClick={() => setIsShow(!isShow)}
         onChange={(e) => setInput(e.target.value)}

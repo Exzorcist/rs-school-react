@@ -1,3 +1,8 @@
+import { FormEvent } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setFormList } from '../redux/reducers/FormHookSlice.tsx';
+
 import InputName from '../components/Form/Hook/InputName.tsx';
 import InputAge from '../components/Form/Hook/InputAge.tsx';
 import InputEmail from '../components/Form/Hook/InputEmail.tsx';
@@ -11,9 +16,26 @@ import SelectImage from '../components/Form/Hook/SelectImage.tsx';
 import SubmitButton from '../components/Form/Hook/SubmitButton.tsx';
 
 function HookForm() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const formSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const value: Record<string, string> = {};
+
+    formData.forEach((val, key) => {
+      value[key] = val.toString();
+    });
+
+    dispatch(setFormList(value));
+    navigate('/', { replace: true });
+  };
+
   return (
     <div className="mt-24 max-w-xl mx-auto">
-      <form className="w-full grid gap-5">
+      <form className="w-full grid gap-5" onSubmit={formSubmit}>
         <div className="flex justify-between items-center gap-5">
           <div className="flex justify-center">
             <InputMan />

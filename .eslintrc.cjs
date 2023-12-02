@@ -21,9 +21,7 @@ module.exports = {
         node: true,
       },
       files: ['.eslintrc.{js,cjs}'],
-      extends: [
-        'plugin:@typescript-eslint/recommended',
-      ],
+      extends: ['plugin:@typescript-eslint/recommended'],
       plugins: ['@typescript-eslint'],
       parserOptions: {
         sourceType: 'script',
