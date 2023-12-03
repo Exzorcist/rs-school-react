@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { setFormList } from '../redux/reducers/FormUncontrolledSlice.tsx';
-import formSchema from '../utils/schemas/FormSchema.tsx';
+import UncontrolledFormSchema from '../utils/schemas/UncontrolledFormSchema.tsx';
 
 import InputName from '../components/Form/Uncontrolled/InputName.tsx';
 import InputAge from '../components/Form/Uncontrolled/InputAge.tsx';
@@ -34,7 +34,7 @@ function UncontrolledForm() {
     });
 
     try {
-      await formSchema.validate(value);
+      await UncontrolledFormSchema.validate(value);
 
       dispatch(setFormList(value));
       navigate('/', { replace: true });

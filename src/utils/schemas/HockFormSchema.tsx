@@ -1,11 +1,8 @@
 import * as yup from 'yup';
 import countries from '../../json/countries.json';
 
-const formSchema = yup.object().shape({
-  terms: yup
-    .boolean()
-    .required('You must agree to the terms and conditions')
-    .transform((value) => (value === 'on' ? true : value)),
+const HockFormSchema = yup.object().shape({
+  terms: yup.boolean().oneOf([true], 'You must agree to the terms and conditions'),
 
   country: yup
     .string()
@@ -47,10 +44,11 @@ const formSchema = yup.object().shape({
 
   age: yup
     .number()
+    .nullable()
     .typeError('Age is required')
-    .integer('Age must be an integer')
     .min(1, 'Age must be at least 1 year')
-    .max(120, 'Age must be at most 120 years'),
+    .max(120, 'Age must be at most 120 years')
+    .required('Age is required'),
 
   name: yup
     .string()
@@ -59,19 +57,21 @@ const formSchema = yup.object().shape({
     .required('Name is required'),
 
   image64: yup
-    .string()
+    .mixed()
     .required('Image is required')
     .test('fileSize', 'File size is too large, max size 2Mb', (value) => {
       if (!value) return true;
 
-      const fileSize = (value.length * 3) / 4 - 2;
+      const { size } = value as { size: number };
+      const fileSize = (size * 3) / 4 - 2;
       const maxSizeInBytes = 1024 * 1024 * 2; // 2MB
       return fileSize <= maxSizeInBytes;
     })
     .test('fileType', 'Invalid file type, allow (.jpeg, .png)', (value) => {
       if (!value) return true;
 
-      const extension = value.split(';')[0].split('/')[1];
+      const { type } = value as { type: string };
+      const extension = type.split('/')[1];
       const allowedExtensions = ['jpeg', 'jpg', 'png'];
       return allowedExtensions.includes(extension);
     }),
@@ -79,4 +79,4 @@ const formSchema = yup.object().shape({
   gender: yup.string().required('Gender is required'),
 });
 
-export default formSchema;
+export default HockFormSchema;

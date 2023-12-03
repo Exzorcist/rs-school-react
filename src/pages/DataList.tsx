@@ -31,10 +31,8 @@ function DataList() {
                   name={item.name}
                   age={+item.age}
                   email={item.email}
-                  password={item.password}
                   country={item.country}
                   gender={item.gender}
-                  terms={item.terms}
                   image64={item.image64}
                 />
               );
@@ -50,23 +48,24 @@ function DataList() {
 
         {!reversedHook.length && <ItemEmpty />}
 
-        {!!reversedHook.length &&
-          reversedHook.map((item, index) => {
-            const indexKey = `${index}`;
-            return (
-              <ItemFilled
-                key={indexKey}
-                name={item.name}
-                age={+item.age}
-                email={item.email}
-                password={item.password}
-                country={item.country}
-                gender={item.gender}
-                terms={item.terms}
-                image64={item.image64}
-              />
-            );
-          })}
+        {!!reversedHook.length && (
+          <div className="grid gap-12">
+            {reversedHook.map((item, index) => {
+              const indexKey = `${index}`;
+              return (
+                <ItemFilled
+                  key={indexKey}
+                  name={item.name}
+                  age={+item.age}
+                  email={item.email}
+                  country={item.country}
+                  gender={item.gender}
+                  image64={item.image64}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

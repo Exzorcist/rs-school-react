@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { IFormInputValidation } from '../../../interfaces/FormData.ts';
-import PasswordStrength from './PasswordStrength.tsx';
+import PasswordStrength from '../PasswordStrength.tsx';
 
 function InputPassword({ onChange, error }: IFormInputValidation) {
   const [passwordStrength, setPasswordStrength] = useState(0);

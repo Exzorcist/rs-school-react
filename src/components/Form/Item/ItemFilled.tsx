@@ -2,13 +2,14 @@ import { IFormData } from '../../../interfaces/FormData.ts';
 
 function ItemFilled(props: IFormData) {
   const { name, age, email, country, gender, image64 } = props;
+  const imageUrl = typeof image64 === 'string' ? image64 : image64.base64;
 
   return (
     <div className="grid grid-cols-[176px_1fr] gap-7">
       <div className="w-44 h-44 shadow">
         <img
           className="w-full h-full object-cover rounded-lg"
-          src={image64}
+          src={imageUrl}
           alt={`${name}'s avatar`}
         />
       </div>
