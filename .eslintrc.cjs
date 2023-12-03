@@ -2,7 +2,6 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    jest: true,
     node: true,
   },
   extends: [
@@ -22,6 +21,8 @@ module.exports = {
         node: true,
       },
       files: ['.eslintrc.{js,cjs}'],
+      extends: ['plugin:@typescript-eslint/recommended'],
+      plugins: ['@typescript-eslint'],
       parserOptions: {
         sourceType: 'script',
       },
@@ -52,6 +53,19 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    'react/state-in-constructor': 'off',
+    'class-methods-use-this': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'import/extensions': [
+      'error',
+      'never',
+      {
+        ts: 'always',
+        json: 'always',
+      },
+    ],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
   ignorePatterns: ['vite.config.ts'],
 };
